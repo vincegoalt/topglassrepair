@@ -1,0 +1,17 @@
+# Allow all web crawlers
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://topglassrepairs.com/sitemap.xml
+
+# Language specific paths
+Allow: /en/
+Allow: /es/
+
+# Prevent crawling of any development/test URLs
+Disallow: /_next/
+Disallow: /api/
+
+# Prevent duplicate content indexing
+Disallow: /*?*

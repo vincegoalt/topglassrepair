@@ -1,19 +1,23 @@
-import { redirect } from 'next/navigation';
-import { headers } from 'next/headers';
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function RootPage() {
-  // Get the Accept-Language header
-  const headersList = headers();
-  const acceptLanguage = headersList.get('accept-language') || '';
+  const router = useRouter();
 
-  // Check if Spanish is preferred
-  const preferSpanish = acceptLanguage
-    .split(',')
-    .some(lang => lang.startsWith('es'));
+  useEffect(() => {
+    // Client-side navigation to English version
+    router.replace('/en');
+  }, [router]);
 
-  // Redirect to the appropriate language version
-  redirect(preferSpanish ? '/es' : '/en');
+  // Show a minimal loading state while redirecting
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-gray-600">Loading...</div>
+    </div>
+  );
 }
 
-// Disable static generation for this page
-export const dynamic = 'force-dynamic';
+// Enable static generation
+export const dynamic = 'force-static';
