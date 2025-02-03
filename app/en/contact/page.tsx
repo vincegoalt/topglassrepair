@@ -7,8 +7,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const metadata = generateSeoMetadata('en');
   return {
     ...metadata,
-    title: 'Contact Us | JC Glass & Mirrors',
-    description: 'Contact JC Glass & Mirrors for professional glass and mirror services in Los Angeles. Available 24/7 for emergency services.',
+    title: 'Contact Us | Glass & Mirrors repairs',
+    description: 'Contact Top Glass & Mirrors repairs for professional glass and mirror services in Los Angeles. Available 24/7 for emergency services.',
     alternates: {
       canonical: '/en/contact',
       languages: {

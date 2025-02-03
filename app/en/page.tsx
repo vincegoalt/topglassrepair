@@ -34,7 +34,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative h-[80vh] min-h-[600px] flex items-center">
         <Image
-          src="/images/glass-and-mirror-company.jpg"
+          src="/images/glass-repair-replacement-company.jpeg"
           alt="Professional glass and mirror services"
           fill
           className="object-cover"

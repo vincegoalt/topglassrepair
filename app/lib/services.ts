@@ -15,7 +15,7 @@ export const services: Service[] = [
       en: 'Professional window glass replacement services for residential and commercial properties. We handle all types of window repairs and replacements with precision and care.',
       es: 'Servicios profesionales de reemplazo de vidrios para ventanas en propiedades residenciales y comerciales. Manejamos todo tipo de reparaciones y reemplazos de ventanas con precisión y cuidado.'
     },
-    imageUrl: '/images/glass-repair-replacement-company.jpeg',
+    imageUrl: '/images/windows-repair-near-me.jpg',
     features: {
       en: [
         'Emergency service available',
@@ -175,7 +175,7 @@ export const services: Service[] = [
       en: 'Comprehensive commercial glass solutions for businesses. From storefronts to office partitions, we handle all commercial glass needs.',
       es: 'Soluciones integrales de vidrios comerciales para empresas. Desde fachadas hasta particiones de oficina, manejamos todas las necesidades de vidrios comerciales.'
     },
-    imageUrl: '/images/glass-and-mirror-company.jpg',
+    imageUrl: '/images/residential-glass-services.jpg',
     features: {
       en: [
         'Storefront systems',
@@ -207,7 +207,7 @@ export const services: Service[] = [
       en: 'Professional storefront glass installation and repair services. Create an inviting entrance for your business with our expert solutions.',
       es: 'Servicios profesionales de instalación y reparación de vidrios para fachadas. Cree una entrada acogedora para su negocio con nuestras soluciones expertas.'
     },
-    imageUrl: '/images/Custom-Glass-and-Glass-Repair-Glass-Mirror.jpg',
+    imageUrl: '/images/storefront-glass-company.jpg',
     features: {
       en: [
         'Custom designs',
