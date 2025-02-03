@@ -12,19 +12,11 @@ const nextConfig = {
   reactStrictMode: true,
   compress: true,
 
-  // Static generation settings
-  staticPageGenerationTimeout: 300,
+  // Increased timeout for large number of pages
+  staticPageGenerationTimeout: 600,
   experimental: {
-    optimizeCss: true,
-    scrollRestoration: true,
-  },
-
-  // Generate 404 page as static
-  generateStaticParams: async () => {
-    return {
-      notFound: true,
-    };
-  },
+    scrollRestoration: true
+  }
 };
 
 export default nextConfig;
