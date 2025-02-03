@@ -3,9 +3,7 @@ const path = require('path');
 const { services } = require('../app/lib/services');
 const { locations } = require('../app/lib/locations');
 
-const DOMAIN = process.env.VERCEL_URL 
-  ? `https://${process.env.VERCEL_URL}`
-  : 'https://topglassrepairs.com';
+const DOMAIN = 'https://www.topglassrepairs.com';
 
 // Ensure proper URL formatting
 function formatUrl(url: string): string {
