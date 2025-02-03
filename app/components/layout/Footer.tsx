@@ -27,6 +27,14 @@ export default function Footer({ lang }: FooterProps) {
     rights: lang === 'en' ? 'All rights reserved' : 'Todos los derechos reservados',
   };
 
+  // Get major cities for the footer
+  const majorCities = locations.filter(location => 
+    ['Los Angeles', 'Long Beach', 'Glendale', 'Santa Monica', 'Pasadena', 
+     'Burbank', 'Beverly Hills', 'West Hollywood', 'Culver City', 'Manhattan Beach',
+     'Torrance', 'El Segundo', 'Inglewood', 'Downey', 'Whittier',
+     'Pomona', 'West Covina', 'Alhambra', 'Monterey Park', 'South Pasadena'].includes(location.name)
+  );
+
   return (
     <footer className="bg-neutral-900 text-white py-12">
       <div className="container mx-auto px-4">
@@ -66,38 +74,42 @@ export default function Footer({ lang }: FooterProps) {
           </div>
 
           {/* Service Areas */}
-          <div>
+          <div className="col-span-2">
             <h3 className="text-lg font-bold mb-4">{translations.serviceAreas}</h3>
-            <ul className="space-y-2">
-              {locations.slice(0, 8).map((location) => (
-                <li key={location.id}>
+            <div className="grid grid-cols-2 gap-4">
+              {majorCities.map((location) => (
+                <div key={location.id}>
                   <Link
                     href={`/${lang}${servicesPath}/${defaultServiceSlug}${locationInPath}${lang === 'en' ? location.slug.en : location.slug.es}`}
                     className="hover:text-accent"
                   >
                     {location.name}
                   </Link>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
+        </div>
 
-          {/* Hours */}
-          <div>
-            <h3 className="text-lg font-bold mb-4">{translations.hours}</h3>
-            <ul className="space-y-2">
-              {Object.entries(CONTACT_INFO.hours).map(([day, hours]) => (
-                <li key={day} className="flex justify-between">
-                  <span>{day}</span>
-                  <span>{hours}</span>
-                </li>
-              ))}
-            </ul>
+        {/* Hours */}
+        <div className="mt-8 pt-8 border-t border-neutral-800">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-lg font-bold mb-4">{translations.hours}</h3>
+              <ul className="space-y-2">
+                {Object.entries(CONTACT_INFO.hours).map(([day, hours]) => (
+                  <li key={day} className="flex justify-between">
+                    <span>{day}</span>
+                    <span>{hours}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-neutral-800 text-center text-sm text-neutral-400">
+        <div className="mt-8 pt-8 border-t border-neutral-800 text-center text-sm text-neutral-400">
           <p>© {new Date().getFullYear()} {CONTACT_INFO.companyName}. {translations.rights}.</p>
         </div>
       </div>
