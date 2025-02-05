@@ -20,7 +20,7 @@ export default function LocationCard({
 }: LocationCardProps) {
   // Generate the appropriate href based on whether a service is provided
   const href = service
-    ? `/${lang}/${lang === 'en' ? 'services' : 'servicios'}/${service}/in/${location.slug[lang]}`
+    ? `/${lang}/${lang === 'en' ? 'services' : 'servicios'}/${service}/${lang === 'en' ? 'in' : 'en'}/${location.slug[lang]}`
     : `/${lang}/${lang === 'en' ? 'locations' : 'ubicaciones'}/${location.slug[lang]}`;
 
   // Get available services for this location

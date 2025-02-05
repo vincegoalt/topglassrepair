@@ -5,6 +5,8 @@ import { services } from '@/app/lib/services';
 import { locations } from '@/app/lib/locations';
 import Hero from '@/app/components/sections/Hero';
 import Features from '@/app/components/sections/Features';
+import LongTailKeywords from '@/app/components/sections/LongTailKeywords';
+import FAQSection from '@/app/components/sections/FAQSection';
 import CallToAction from '@/app/components/sections/CallToAction';
 import Breadcrumbs, { generateServiceLocationBreadcrumbs } from '@/app/components/navigation/Breadcrumbs';
 
@@ -118,6 +120,29 @@ export default function ServiceLocationPage({ params }: ServiceLocationPageProps
           lang="en"
           variant="list"
           background="light"
+        />
+      )}
+
+      {/* Long-tail Keywords Section */}
+      {service.longTailKeywords?.en && (
+        <LongTailKeywords
+          title={`${service.name.en} Services in ${location.name}`}
+          description="Explore our comprehensive glass and mirror solutions"
+          keywords={service.longTailKeywords.en}
+          lang="en"
+          locationName={location.name}
+          phone="(562) 436-2616"
+        />
+      )}
+
+      {/* FAQ Section */}
+      {service.faqs?.en && (
+        <FAQSection
+          title={`${service.name.en} FAQs in ${location.name}`}
+          description="Find answers to commonly asked questions about our services"
+          faqs={service.faqs.en}
+          lang="en"
+          locationName={location.name}
         />
       )}
 

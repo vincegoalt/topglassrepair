@@ -5,6 +5,8 @@ import { services } from '@/app/lib/services';
 import { locations } from '@/app/lib/locations';
 import Hero from '@/app/components/sections/Hero';
 import Features from '@/app/components/sections/Features';
+import LongTailKeywords from '@/app/components/sections/LongTailKeywords';
+import FAQSection from '@/app/components/sections/FAQSection';
 import CallToAction from '@/app/components/sections/CallToAction';
 import Breadcrumbs, { generateServiceLocationBreadcrumbs } from '@/app/components/navigation/Breadcrumbs';
 
@@ -121,10 +123,33 @@ export default function ServiceLocationPage({ params }: ServiceLocationPageProps
         />
       )}
 
+      {/* Long-tail Keywords Section */}
+      {service.longTailKeywords?.es && (
+        <LongTailKeywords
+          title={`Servicios de ${service.name.es} en ${location.name}`}
+          description="Explore nuestras soluciones integrales de vidrio y espejos"
+          keywords={service.longTailKeywords.es}
+          lang="es"
+          locationName={location.name}
+          phone="(562) 436-2616"
+        />
+      )}
+
+      {/* FAQ Section */}
+      {service.faqs?.es && (
+        <FAQSection
+          title={`Preguntas Frecuentes sobre ${service.name.es} en ${location.name}`}
+          description="Encuentre respuestas a las preguntas más comunes sobre nuestros servicios"
+          faqs={service.faqs.es}
+          lang="es"
+          locationName={location.name}
+        />
+      )}
+
       {/* Call to Action */}
       <CallToAction
         title={`¿Necesita ${service.name.es} en ${location.name}?`}
-        description="Contáctenos hoy para un presupuesto gratuito. Nuestro equipo de expertos está listo para ayudar con todas sus necesidades de vidrios y espejos."
+        description="Contáctenos hoy para un presupuesto gratuito. Nuestro equipo de expertos está listo para ayudar con todas sus necesidades de vidrio y espejos."
         primaryAction={{
           label: 'Llame Ahora: (562) 436-2616',
           href: 'tel:(562) 436-2616',

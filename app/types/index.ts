@@ -1,5 +1,15 @@
 export type Language = 'en' | 'es';
 
+export interface FAQ {
+  question: string;
+  answer: string;
+}
+
+export interface LongTailKeyword {
+  title: string;
+  description: string;
+}
+
 export interface Service {
   id: string;
   name: {
@@ -17,6 +27,14 @@ export interface Service {
   features?: {
     en: string[];
     es: string[];
+  };
+  faqs?: {
+    en: FAQ[];
+    es: FAQ[];
+  };
+  longTailKeywords?: {
+    en: LongTailKeyword[];
+    es: LongTailKeyword[];
   };
   imageUrl: string;
 }

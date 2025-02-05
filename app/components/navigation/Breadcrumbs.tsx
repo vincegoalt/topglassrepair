@@ -44,11 +44,12 @@ export function generateServiceLocationBreadcrumbs(
   const servicesPath = lang === 'en' ? '/services' : '/servicios';
   const servicesLabel = lang === 'en' ? 'Services' : 'Servicios';
 
+  const preposition = lang === 'en' ? 'in' : 'en';
   return [
     { label: lang === 'en' ? 'Home' : 'Inicio', href: prefix },
     { label: servicesLabel, href: `${prefix}${servicesPath}` },
     { label: serviceName, href: `${prefix}${servicesPath}/${serviceName}` },
-    { label: locationName }
+    { label: locationName, href: `${prefix}${servicesPath}/${serviceName}/${preposition}/${locationName}` }
   ];
 }
 
