@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { Inter } from 'next/font/google';
-import './globals.css';
 import { Language } from './types';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,18 +13,15 @@ export const metadata: Metadata = {
   description: 'Professional glass and mirror services in Los Angeles',
 };
 
-function getLanguageFromPathname(pathname: string): Language {
-  return pathname.startsWith('/es') ? 'es' : 'en';
-}
-
 export default function RootLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: { lang?: string };
 }) {
-  const lang = params.lang as Language || 'en';
+  // Get language from URL
+  const headersList = headers();
+  const pathname = headersList.get('x-invoke-path') || '';
+  const lang = pathname.startsWith('/es') ? 'es' : 'en';
 
   return (
     <html lang={lang}>
