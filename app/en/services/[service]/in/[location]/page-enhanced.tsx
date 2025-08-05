@@ -269,7 +269,7 @@ export default function ServiceLocationPage({ params }: { params: { service: str
                     <span className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</span>
                     <div>
                       <h4 className="font-semibold mb-1">Free Assessment</h4>
-                      <p className="text-neutral-600">We'll visit your {location.name} property to evaluate the work needed</p>
+                      <p className="text-neutral-600">We&apos;ll visit your {location.name} property to evaluate the work needed</p>
                     </div>
                   </li>
                   <li className="flex items-start">

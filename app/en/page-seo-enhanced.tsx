@@ -120,8 +120,8 @@ export default function HomePage() {
             <div className="p-6 bg-secondary rounded-lg">
               <h3 className="text-xl font-bold mb-3">24/7 Emergency Glass Repair</h3>
               <p className="text-neutral-600">
-                Broken glass can't wait. Our emergency response team is available 24 hours a day, 
-                7 days a week for urgent glass repair needs in Los Angeles. We'll secure your property 
+                Broken glass can&apos;t wait. Our emergency response team is available 24 hours a day, 
+                7 days a week for urgent glass repair needs in Los Angeles. We&apos;ll secure your property 
                 and complete repairs quickly.
               </p>
             </div>
@@ -136,7 +136,7 @@ export default function HomePage() {
             <div className="p-6 bg-secondary rounded-lg">
               <h3 className="text-xl font-bold mb-3">Quality Glass Products</h3>
               <p className="text-neutral-600">
-                We use only premium quality glass from trusted manufacturers. Whether it's tempered 
+                We use only premium quality glass from trusted manufacturers. Whether it&apos;s tempered 
                 safety glass, energy-efficient double-pane windows, or custom mirrors, we ensure 
                 lasting durability.
               </p>

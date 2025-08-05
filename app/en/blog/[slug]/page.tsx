@@ -333,7 +333,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   {/* CTA Card */}
                   <div className="bg-primary text-white rounded-lg p-6 mb-8 sticky top-6">
                     <h3 className="text-xl font-bold mb-4">Need Glass Repair Services?</h3>
-                    <p className="mb-6">Get professional help from Los Angeles's trusted glass experts.</p>
+                    <p className="mb-6">Get professional help from Los Angeles&apos;s trusted glass experts.</p>
                     <a href="tel:(562) 436-2616" className="btn btn-accent w-full mb-3">
                       Call (562) 436-2616
                     </a>
