@@ -6,5 +6,8 @@
       "main": true,
       "master": true
     }
+  },
+  "github": {
+    "silent": false
   }
 }
