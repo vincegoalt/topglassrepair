@@ -1,3 +1,7 @@
+# Top Glass Repairs
+
+Professional glass and mirror services website built with Next.js 14.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
