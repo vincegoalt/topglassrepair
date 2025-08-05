@@ -73,7 +73,24 @@ export default function HomePage() {
       />
 
       {/* Hero Section with Rich Content */}
-      <Hero />
+      <Hero 
+        title="Expert Glass & Mirror Services in Los Angeles"
+        description="Professional glass repair, replacement, and custom mirror solutions. Available 24/7 for emergency services."
+        imageUrl="/images/glass-repair-replacement-company.jpeg"
+        imageAlt="Professional glass and mirror services"
+        lang="en"
+        actions={{
+          primary: {
+            label: "Call Now: (562) 436-2616",
+            href: "tel:(562) 436-2616",
+            isPhoneNumber: true
+          },
+          secondary: {
+            label: "View Services",
+            href: "/en/services"
+          }
+        }}
+      />
 
       {/* Services Section with Enhanced Content */}
       <section className="section-padding bg-white">
@@ -98,10 +115,10 @@ export default function HomePage() {
               <Link
                 key={location.id}
                 href={`/en/services/glass-repair/in/${location.slug}`}
-                className="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-center"
+                className="block p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-center"
               >
-                <h3 className="font-semibold text-primary">{location.name}</h3>
-                <p className="text-sm text-neutral-600 mt-1">Glass Repair</p>
+                <span className="font-semibold text-primary block">{location.name}</span>
+                <span className="text-sm text-neutral-600 mt-1 block">Glass Repair</span>
               </Link>
             ))}
           </div>
