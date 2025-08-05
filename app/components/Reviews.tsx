@@ -114,7 +114,9 @@ export default function Reviews({
 
   const handleHelpful = (reviewId: string) => {
     if (!helpfulReviews.has(reviewId)) {
-      setHelpfulReviews(new Set([...helpfulReviews, reviewId]));
+      const newSet = new Set(helpfulReviews);
+      newSet.add(reviewId);
+      setHelpfulReviews(newSet);
       // In production, this would update the database
     }
   };
