@@ -1,11 +1,43 @@
 import { Language, MetaData, StructuredData, StructuredDataProvider } from '../types';
-import { COMPANY_META, SEO_TEMPLATES } from '../lib/config';
+import { COMPANY_META, SEO_TEMPLATES, CONTACT_INFO } from '../lib/config';
 
 export function generateMetadata(lang: Language): MetaData {
   return {
     title: COMPANY_META[lang].title,
     description: COMPANY_META[lang].description,
-    keywords: COMPANY_META[lang].keywords
+    keywords: COMPANY_META[lang].keywords,
+    openGraph: {
+      title: COMPANY_META[lang].title,
+      description: COMPANY_META[lang].description,
+      type: 'website',
+      locale: lang === 'es' ? 'es_ES' : 'en_US',
+      siteName: 'Top Glass Repairs',
+      images: [
+        {
+          url: 'https://topglassrepairs.com/images/og-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'Top Glass Repairs - Professional Glass & Mirror Services'
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: COMPANY_META[lang].title,
+      description: COMPANY_META[lang].description,
+      images: ['https://topglassrepairs.com/images/og-image.jpg']
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    }
   };
 }
 
@@ -81,5 +113,138 @@ export function generateStructuredData(
     name: mergedData.name,
     description: mergedData.description,
     provider
+  };
+}
+
+export function generateLocalBusinessSchema(lang: Language) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': 'https://topglassrepairs.com/#business',
+    name: CONTACT_INFO.companyName,
+    description: COMPANY_META[lang].description,
+    url: 'https://topglassrepairs.com',
+    telephone: CONTACT_INFO.office,
+    email: CONTACT_INFO.email,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Long Beach',
+      addressRegion: 'CA',
+      postalCode: '90813',
+      addressCountry: 'US',
+      streetAddress: CONTACT_INFO.address
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '33.7701',
+      longitude: '-118.1937'
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '08:00',
+        closes: '18:00'
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Saturday',
+        opens: '09:00',
+        closes: '16:00'
+      }
+    ],
+    priceRange: '$$',
+    image: [
+      'https://topglassrepairs.com/images/storefront.jpg',
+      'https://topglassrepairs.com/images/glass-work.jpg'
+    ],
+    areaServed: [
+      {
+        '@type': 'City',
+        name: 'Los Angeles'
+      },
+      {
+        '@type': 'City',
+        name: 'Long Beach'
+      },
+      {
+        '@type': 'City',
+        name: 'Orange County'
+      }
+    ],
+    sameAs: [
+      'https://facebook.com/topglassrepairs',
+      'https://instagram.com/topglassrepairs',
+      'https://twitter.com/topglassrepairs'
+    ]
+  };
+}
+
+export function generateFAQSchema(lang: Language, faqs: Array<{question: string; answer: string}>) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  };
+}
+
+export function generateServiceSchema(lang: Language, service: {
+  name: string;
+  description: string;
+  price?: string;
+  category?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.name,
+    description: service.description,
+    provider: generateLocalBusinessSchema(lang),
+    serviceType: service.category || 'Glass Repair Service',
+    areaServed: {
+      '@type': 'State',
+      name: 'California'
+    },
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceUrl: 'https://topglassrepairs.com',
+      servicePhone: CONTACT_INFO.office,
+      serviceSmsNumber: CONTACT_INFO.office
+    },
+    hoursAvailable: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '08:00',
+        closes: '18:00'
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Saturday',
+        opens: '09:00',
+        closes: '16:00'
+      }
+    ],
+    priceRange: service.price || '$$'
+  };
+}
+
+export function generateBreadcrumbSchema(lang: Language, items: Array<{name: string; url: string}>) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url
+    }))
   };
 }

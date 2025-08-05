@@ -1,17 +1,14 @@
-# Allow all web crawlers
+# Robots.txt for topglassrepairs.com
 User-agent: *
 Allow: /
 
-# Sitemaps
+# Sitemap location
 Sitemap: https://topglassrepairs.com/sitemap.xml
 
-# Language specific paths
-Allow: /en/
-Allow: /es/
+# Crawl-delay for polite crawling
+Crawl-delay: 1
 
-# Prevent crawling of any development/test URLs
-Disallow: /_next/
+# Block sensitive directories
 Disallow: /api/
-
-# Prevent duplicate content indexing
-Disallow: /*?*
+Disallow: /_next/
+Disallow: /admin/
