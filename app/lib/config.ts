@@ -17,11 +17,13 @@ export const NAV_LINKS = {
   en: [
     { href: '/en', label: 'Home' },
     { href: '/en/services', label: 'Services' },
+    { href: '/en/blog', label: 'Blog' },
     { href: '/en/contact', label: 'Contact' }
   ],
   es: [
     { href: '/es', label: 'Inicio' },
     { href: '/es/servicios', label: 'Servicios' },
+    { href: '/es/blog', label: 'Blog' },
     { href: '/es/contacto', label: 'Contacto' }
   ]
 };
