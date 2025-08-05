@@ -248,3 +248,45 @@ export function generateBreadcrumbSchema(lang: Language, items: Array<{name: str
     }))
   };
 }
+
+export function generateBlogPostSchema(post: {
+  title: string;
+  description: string;
+  author: string;
+  authorRole?: string;
+  date: string;
+  image: string;
+  category: string;
+  tags: string[];
+  content: string;
+}, slug: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    image: `https://topglassrepairs.com${post.image}`,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      '@type': 'Person',
+      name: post.author,
+      jobTitle: post.authorRole || 'Glass Expert'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Top Glass Repairs',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://topglassrepairs.com/logo.png'
+      }
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://topglassrepairs.com/en/blog/${slug}`
+    },
+    articleSection: post.category,
+    keywords: post.tags.join(', '),
+    wordCount: post.content.split(' ').length
+  };
+}

@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { 
   generateBreadcrumbSchema, 
   generateLocalBusinessSchema,
-  generateBlogPostSchema 
+  generateBlogPostSchema
 } from '../../../utils/seo';
 
 // Sample blog post data - in production, this would come from a CMS
@@ -224,38 +224,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-function generateBlogPostSchema(post: any, slug: string) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.description,
-    image: `https://topglassrepairs.com${post.image}`,
-    datePublished: post.date,
-    dateModified: post.date,
-    author: {
-      '@type': 'Person',
-      name: post.author,
-      jobTitle: post.authorRole
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Top Glass Repairs',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://topglassrepairs.com/logo.png'
-      }
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://topglassrepairs.com/en/blog/${slug}`
-    },
-    articleSection: post.category,
-    keywords: post.tags.join(', '),
-    wordCount: post.content.split(' ').length,
-    timeRequired: `PT${parseInt(post.readTime)}M`
-  };
-}
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = blogPosts[params.slug as keyof typeof blogPosts];
