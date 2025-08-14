@@ -56,10 +56,10 @@ export default function CallToAction({
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Content */}
             <div>
-              <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${textColor}`}>
+              <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 ${textColor}`}>
                 {title}
               </h2>
-              <p className={`text-lg mb-8 ${descriptionColor}`}>
+              <p className={`text-base sm:text-lg mb-6 sm:mb-8 ${descriptionColor}`}>
                 {description}
               </p>
               <div className="flex flex-wrap gap-4">
@@ -137,10 +137,10 @@ export default function CallToAction({
           // Default variant
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${textColor}`}>
+              <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 ${textColor}`}>
                 {title}
               </h2>
-              <p className={`text-lg mb-8 ${descriptionColor}`}>
+              <p className={`text-base sm:text-lg mb-6 sm:mb-8 ${descriptionColor}`}>
                 {description}
               </p>
             </div>

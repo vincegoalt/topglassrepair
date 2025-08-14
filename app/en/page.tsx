@@ -264,7 +264,12 @@ export default function HomePage() {
       </section>
 
       {/* FAQ Section */}
-      <FAQSection faqs={faqs} lang="en" />
+      <FAQSection 
+        title="Frequently Asked Questions"
+        description="Get answers to common questions about our glass repair and replacement services"
+        faqs={faqs} 
+        lang="en" 
+      />
 
       {/* Long Tail Keywords Section */}
       <LongTailKeywords lang="en" />

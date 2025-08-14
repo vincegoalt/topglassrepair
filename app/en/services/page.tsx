@@ -126,7 +126,6 @@ export default function ServicesPage() {
         }}
         size="medium"
         align="center"
-        showTrustIndicators={true}
       />
 
       {/* Features Section */}

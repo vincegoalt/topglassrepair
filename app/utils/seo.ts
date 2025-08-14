@@ -15,39 +15,6 @@ export function generateMetadata(lang: Language, canonicalPath?: string): MetaDa
         'en': `${baseUrl}/en`,
         'es': `${baseUrl}/es`
       }
-    },
-    openGraph: {
-      title: COMPANY_META[lang].title,
-      description: COMPANY_META[lang].description,
-      type: 'website',
-      locale: lang === 'es' ? 'es_ES' : 'en_US',
-      siteName: 'Top Glass Repairs',
-      url: canonicalUrl,
-      images: [
-        {
-          url: 'https://topglassrepairs.com/images/og-image.jpg',
-          width: 1200,
-          height: 630,
-          alt: 'Top Glass Repairs - Professional Glass & Mirror Services'
-        }
-      ]
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: COMPANY_META[lang].title,
-      description: COMPANY_META[lang].description,
-      images: ['https://topglassrepairs.com/images/og-image.jpg']
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
     }
   };
 }
@@ -66,20 +33,6 @@ export function generateServiceMetadata(lang: Language, service: string, service
         'en': `${baseUrl}/en/services/${serviceSlug}`,
         'es': `${baseUrl}/es/servicios/${serviceSlug}`
       }
-    },
-    openGraph: {
-      url: canonicalUrl
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
     }
   };
 }
@@ -109,20 +62,6 @@ export function generateServiceLocationMetadata(
         'en': `${baseUrl}/en/services/${serviceSlug}/in/${locationSlug}`,
         'es': `${baseUrl}/es/servicios/${serviceSlug}/en/${locationSlug}`
       }
-    },
-    openGraph: {
-      url: canonicalUrl
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
     }
   };
 }
@@ -137,20 +76,6 @@ export function generateLocationMetadata(lang: Language, location: string, locat
     keywords: [...COMPANY_META[lang].keywords, location],
     alternates: {
       canonical: canonicalUrl
-    },
-    openGraph: {
-      url: canonicalUrl
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
     }
   };
 }

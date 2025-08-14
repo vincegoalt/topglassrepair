@@ -20,6 +20,7 @@ export default function ShowcaseImageSplit({ imageUrl, alt, lang }: ShowcaseImag
           isShowing === 'before' ? 'opacity-100' : 'opacity-0'
         }`}>
           <div className="relative w-full h-full overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageUrl}
               alt={`Before: ${alt}`}
@@ -37,6 +38,7 @@ export default function ShowcaseImageSplit({ imageUrl, alt, lang }: ShowcaseImag
           isShowing === 'after' ? 'opacity-100' : 'opacity-0'
         }`}>
           <div className="relative w-full h-full overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageUrl}
               alt={`After: ${alt}`}
@@ -72,6 +74,7 @@ export default function ShowcaseImageSplit({ imageUrl, alt, lang }: ShowcaseImag
             
             {/* After side */}
             <div className="relative w-1/2 h-full overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imageUrl}
                 alt={`After: ${alt}`}

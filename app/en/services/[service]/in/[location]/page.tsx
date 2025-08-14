@@ -33,8 +33,8 @@ export async function generateMetadata({ params }: { params: { service: string; 
   
   if (!service || !location) return {};
   
-  const metadata = generateServiceLocationMetadata('en', service.name.en, location.name);
-  const keywords = serviceAreaKeywords[params.location] || [];
+  const metadata = generateServiceLocationMetadata('en', service.name.en, location.name, service.slug.en, location.slug.en);
+  const keywords = serviceAreaKeywords[params.location as keyof typeof serviceAreaKeywords] || [];
   
   return {
     ...metadata,
@@ -98,7 +98,7 @@ export default function ServiceLocationPage({ params }: { params: { service: str
   }
 
   // Get FAQs for this service
-  const serviceFAQs = localFAQs[params.service] || localFAQs['glass-repair'];
+  const serviceFAQs = localFAQs[params.service as keyof typeof localFAQs] || localFAQs['glass-repair'];
   const faqs = serviceFAQs.map(faq => ({
     question: faq.question.replace('{location}', location.name),
     answer: faq.answer.replace(/{location}/g, location.name)
@@ -203,7 +203,7 @@ export default function ServiceLocationPage({ params }: { params: { service: str
                       <span className="text-accent mr-2">✓</span>
                       <span>{item}</span>
                     </li>
-                  )) : service.features.en.map((feature, index) => (
+                  )) : service.features?.en.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <span className="text-accent mr-2">✓</span>
                       <span>{feature}</span>

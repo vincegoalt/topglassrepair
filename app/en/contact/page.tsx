@@ -31,19 +31,19 @@ export default function ContactPage() {
       />
 
       {/* Hero Section with Glass Effect */}
-      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white py-12 sm:py-16 md:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black/20" />
         
-        {/* Floating glass elements */}
-        <div className="absolute top-10 right-10 w-64 h-64 glass rounded-full opacity-10 animate-float" />
-        <div className="absolute bottom-10 left-10 w-80 h-80 glass rounded-full opacity-10 animate-float" style={{ animationDelay: '2s' }} />
+        {/* Floating glass elements - hidden on mobile for performance */}
+        <div className="hidden md:block absolute top-10 right-10 w-64 h-64 glass rounded-full opacity-10 animate-float" />
+        <div className="hidden md:block absolute bottom-10 left-10 w-80 h-80 glass rounded-full opacity-10 animate-float" style={{ animationDelay: '2s' }} />
         
         <div className="relative container mx-auto px-4">
           <div className="max-w-4xl">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 animate-fade-in">
               Get in Touch
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 animate-slide-up">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 animate-slide-up">
               We're here to help with all your glass and mirror needs. Available 24/7 for emergencies.
             </p>
           </div>
@@ -51,14 +51,14 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Content */}
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
             {/* Contact Information */}
             <div className="space-y-8">
               {/* Quick Contact Card */}
-              <div className="glass rounded-2xl p-8 transform hover:scale-[1.02] transition-transform">
-                <h2 className="text-3xl font-bold mb-6 text-gradient">Contact Information</h2>
+              <div className="glass rounded-xl sm:rounded-2xl p-6 sm:p-8 transform hover:scale-[1.02] transition-transform">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gradient">Contact Information</h2>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center flex-shrink-0">
@@ -68,8 +68,8 @@ export default function ContactPage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">Address</h3>
-                      <p className="text-gray-600">{CONTACT_INFO.address}</p>
+                      <h3 className="font-semibold text-base sm:text-lg mb-1">Address</h3>
+                      <p className="text-sm sm:text-base text-gray-600">{CONTACT_INFO.address}</p>
                     </div>
                   </div>
 
@@ -120,8 +120,8 @@ export default function ContactPage() {
               </div>
 
               {/* Business Hours Card */}
-              <div className="glass rounded-2xl p-8 transform hover:scale-[1.02] transition-transform">
-                <h2 className="text-3xl font-bold mb-6 text-gradient">Business Hours</h2>
+              <div className="glass rounded-xl sm:rounded-2xl p-6 sm:p-8 transform hover:scale-[1.02] transition-transform">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gradient">Business Hours</h2>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center py-3 border-b border-gray-200/50">
                     <span className="font-medium">Monday - Friday</span>

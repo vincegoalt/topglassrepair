@@ -36,9 +36,9 @@ export default function Footer({ lang }: FooterProps) {
   );
 
   return (
-    <footer className="bg-gradient-to-b from-gray-100 to-white text-gray-700 py-16 border-t border-gray-200">
+    <footer className="bg-gradient-to-b from-gray-100 to-white text-gray-700 py-8 sm:py-12 md:py-16 border-t border-gray-200">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* Company Info */}
           <div>
             <h3 className="text-2xl font-bold mb-4 text-gradient">{CONTACT_INFO.companyName}</h3>
@@ -74,9 +74,9 @@ export default function Footer({ lang }: FooterProps) {
           </div>
 
           {/* Service Areas */}
-          <div className="col-span-2">
-            <h3 className="text-xl font-bold mb-4 text-gray-900">{translations.serviceAreas}</h3>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="col-span-1 sm:col-span-2">
+            <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900">{translations.serviceAreas}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
               {majorCities.map((location) => (
                 <div key={location.id}>
                   <Link
@@ -128,8 +128,7 @@ export default function Footer({ lang }: FooterProps) {
               </svg>
             </a>
           </div>
-          <p className="text-sm text-gray-500">© {new Date().getFullYear()} {CONTACT_INFO.companyName}. {translations.rights}.</p>
-          <p>© {new Date().getFullYear()} {CONTACT_INFO.companyName}. {translations.rights}.</p>
+          <p className="text-xs sm:text-sm text-gray-500">© {new Date().getFullYear()} {CONTACT_INFO.companyName}. {translations.rights}.</p>
         </div>
       </div>
     </footer>

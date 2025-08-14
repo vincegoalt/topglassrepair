@@ -32,9 +32,9 @@ export default function ServiceCard({
   }[variant];
 
   const imageHeight = {
-    default: 'h-56',
-    compact: 'h-40',
-    featured: 'h-72'
+    default: 'h-48 sm:h-56',
+    compact: 'h-32 sm:h-40',
+    featured: 'h-56 sm:h-64 md:h-72'
   }[variant];
 
   return (
@@ -53,8 +53,8 @@ export default function ServiceCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
         
         {/* Service icon or badge */}
-        <div className="absolute top-4 right-4 glass-dark p-4 rounded-2xl backdrop-blur-lg border border-white/20">
-          <div className="w-8 h-8 text-white">
+        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 glass-dark p-3 sm:p-4 rounded-xl sm:rounded-2xl backdrop-blur-lg border border-white/20">
+          <div className="w-6 h-6 sm:w-8 sm:h-8 text-white">
             {getServiceIcon(service.slug[lang])}
           </div>
         </div>
@@ -67,16 +67,16 @@ export default function ServiceCard({
       </div>
 
       {/* Content with enhanced styling */}
-      <div className="p-6 relative">
+      <div className="p-4 sm:p-6 relative">
         {/* Subtle gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-secondary/10 opacity-50" />
         <div className="relative z-10">
-        <h3 className="text-2xl font-bold mb-3 text-gradient group-hover:scale-105 transition-transform origin-left">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 text-gradient group-hover:scale-105 transition-transform origin-left">
           {service.name[lang]}
         </h3>
         
         {variant !== 'compact' && (
-          <p className="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 line-clamp-3 leading-relaxed">
             {service.description[lang]}
           </p>
         )}
@@ -106,16 +106,16 @@ export default function ServiceCard({
         )}
 
         {/* Call to Action with arrow animation */}
-        <div className="mt-6 flex items-center justify-between">
-          <span className="text-primary font-semibold flex items-center group-hover:text-accent transition-colors">
+        <div className="mt-4 sm:mt-6 flex items-center justify-between">
+          <span className="text-sm sm:text-base text-primary font-semibold flex items-center group-hover:text-accent transition-colors">
             {getTranslation('learnMore', lang)}
-            <svg className="w-5 h-5 ml-1 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-1 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </span>
           
           {variant === 'featured' && (
-            <span className="px-4 py-2 bg-gradient-to-r from-accent to-orange-500 text-white text-sm font-semibold rounded-full shadow-md group-hover:shadow-lg transition-shadow">
+            <span className="px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-accent to-orange-500 text-white text-xs sm:text-sm font-semibold rounded-full shadow-md group-hover:shadow-lg transition-shadow">
               {lang === 'en' ? 'Get Quote' : 'Cotización'}
             </span>
           )}
