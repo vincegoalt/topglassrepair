@@ -20,7 +20,7 @@ export async function generateStaticParams() {
     for (const location of locations) {
       params.push({
         service: service.slug.en,
-        location: location.slug,
+        location: location.slug.en,
       });
     }
   }
@@ -29,7 +29,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { service: string; location: string } }): Promise<Metadata> {
   const service = services.find(s => s.slug.en === params.service);
-  const location = locations.find(l => l.slug === params.location);
+  const location = locations.find(l => l.slug.en === params.location);
   
   if (!service || !location) return {};
   
@@ -90,7 +90,7 @@ const localFAQs = {
 
 export default function ServiceLocationPage({ params }: { params: { service: string; location: string } }) {
   const service = services.find(s => s.slug.en === params.service);
-  const location = locations.find(l => l.slug === params.location);
+  const location = locations.find(l => l.slug.en === params.location);
   const locationData = locationContent[params.location];
   
   if (!service || !location) {
@@ -330,10 +330,10 @@ export default function ServiceLocationPage({ params }: { params: { service: str
               <div className="bg-secondary rounded-lg p-6 mb-6">
                 <h3 className="font-bold mb-4">Nearby Service Areas</h3>
                 <ul className="space-y-2">
-                  {locations.filter(l => l.slug !== params.location).slice(0, 5).map((nearbyLocation) => (
+                  {locations.filter(l => l.slug.en !== params.location).slice(0, 5).map((nearbyLocation) => (
                     <li key={nearbyLocation.id}>
                       <Link 
-                        href={`/en/services/${params.service}/in/${nearbyLocation.slug}`}
+                        href={`/en/services/${params.service}/in/${nearbyLocation.slug.en}`}
                         className="text-primary hover:underline"
                       >
                         {service.name.en} in {nearbyLocation.name}

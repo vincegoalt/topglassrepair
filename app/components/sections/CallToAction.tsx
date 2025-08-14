@@ -7,9 +7,9 @@ import { getTranslation } from '@/app/utils/languageClient';
 import { CONTACT_INFO } from '@/app/lib/config';
 
 interface CallToActionProps {
-  title: string;
-  description: string;
-  primaryAction: {
+  title?: string;
+  description?: string;
+  primaryAction?: {
     label: string;
     href: string;
     isPhoneNumber?: boolean;
@@ -25,9 +25,13 @@ interface CallToActionProps {
 }
 
 export default function CallToAction({
-  title,
-  description,
-  primaryAction,
+  title = "Need Glass Repair or Replacement?",
+  description = "Get fast, professional service from Los Angeles's trusted glass experts",
+  primaryAction = {
+    label: "Call Now: (562) 436-2616",
+    href: "tel:(562)436-2616",
+    isPhoneNumber: true
+  },
   secondaryAction,
   lang,
   variant = 'default',
@@ -60,19 +64,19 @@ export default function CallToAction({
               </p>
               <div className="flex flex-wrap gap-4">
                 {/* Primary Action */}
-                {primaryAction.isPhoneNumber ? (
+                {primaryAction?.isPhoneNumber ? (
                   <a
-                    href={primaryAction.href}
+                    href={primaryAction?.href || '#'}
                     className="btn btn-accent"
                   >
-                    {primaryAction.label}
+                    {primaryAction?.label || 'Contact Us'}
                   </a>
                 ) : (
                   <Link
-                    href={primaryAction.href}
+                    href={primaryAction?.href || '#'}
                     className="btn btn-accent"
                   >
-                    {primaryAction.label}
+                    {primaryAction?.label || 'Contact Us'}
                   </Link>
                 )}
 
@@ -167,19 +171,19 @@ export default function CallToAction({
 
               {/* Actions */}
               <div className="flex flex-wrap gap-4">
-                {primaryAction.isPhoneNumber ? (
+                {primaryAction?.isPhoneNumber ? (
                   <a
-                    href={primaryAction.href}
+                    href={primaryAction?.href || '#'}
                     className="btn btn-accent"
                   >
-                    {primaryAction.label}
+                    {primaryAction?.label || 'Contact Us'}
                   </a>
                 ) : (
                   <Link
-                    href={primaryAction.href}
+                    href={primaryAction?.href || '#'}
                     className="btn btn-accent"
                   >
-                    {primaryAction.label}
+                    {primaryAction?.label || 'Contact Us'}
                   </Link>
                 )}
 

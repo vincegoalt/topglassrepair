@@ -114,7 +114,7 @@ export default function HomePage() {
             {locations.slice(0, 16).map((location) => (
               <Link
                 key={location.id}
-                href={`/en/services/glass-repair/in/${location.slug}`}
+                href={`/en/services/glass-repair/in/${location.slug.en}`}
                 className="block p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-center"
               >
                 <span className="font-semibold text-primary block">{location.name}</span>
@@ -224,7 +224,20 @@ export default function HomePage() {
       <LongTailKeywords lang="en" />
 
       {/* Final CTA */}
-      <CallToAction lang="en" />
+      <CallToAction 
+        lang="en"
+        title="Need Emergency Glass Repair?"
+        description="Available 24/7 for urgent glass repairs and replacements throughout Los Angeles County."
+        primaryAction={{
+          label: "Call Now: (562) 436-2616",
+          href: "tel:(562)436-2616",
+          isPhoneNumber: true
+        }}
+        secondaryAction={{
+          label: "Get Free Quote",
+          href: "/en/contact"
+        }}
+      />
     </>
   );
 }

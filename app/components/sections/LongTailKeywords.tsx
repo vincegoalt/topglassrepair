@@ -3,21 +3,21 @@
 import { LongTailKeyword, Language } from "@/app/types";
 
 interface LongTailKeywordsProps {
-  title: string;
+  title?: string;
   description?: string;
-  keywords: LongTailKeyword[];
+  keywords?: LongTailKeyword[];
   lang: Language;
   locationName?: string;
-  phone: string;
+  phone?: string;
 }
 
 export default function LongTailKeywords({
-  title,
+  title = "Glass & Mirror Services",
   description,
-  keywords,
+  keywords = [],
   lang,
   locationName,
-  phone,
+  phone = "(562) 436-2616",
 }: LongTailKeywordsProps) {
   // Replace [location] placeholder with actual location name if provided
   const processText = (text: string) => {
