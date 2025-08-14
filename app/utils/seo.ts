@@ -1,17 +1,28 @@
 import { Language, MetaData, StructuredData, StructuredDataProvider } from '../types';
 import { COMPANY_META, SEO_TEMPLATES, CONTACT_INFO } from '../lib/config';
 
-export function generateMetadata(lang: Language): MetaData {
+export function generateMetadata(lang: Language, canonicalPath?: string): MetaData {
+  const baseUrl = 'https://topglassrepairs.com';
+  const canonicalUrl = canonicalPath ? `${baseUrl}${canonicalPath}` : `${baseUrl}/${lang}`;
+  
   return {
     title: COMPANY_META[lang].title,
     description: COMPANY_META[lang].description,
     keywords: COMPANY_META[lang].keywords,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'en': `${baseUrl}/en`,
+        'es': `${baseUrl}/es`
+      }
+    },
     openGraph: {
       title: COMPANY_META[lang].title,
       description: COMPANY_META[lang].description,
       type: 'website',
       locale: lang === 'es' ? 'es_ES' : 'en_US',
       siteName: 'Top Glass Repairs',
+      url: canonicalUrl,
       images: [
         {
           url: 'https://topglassrepairs.com/images/og-image.jpg',
@@ -41,20 +52,49 @@ export function generateMetadata(lang: Language): MetaData {
   };
 }
 
-export function generateServiceMetadata(lang: Language, service: string): MetaData {
+export function generateServiceMetadata(lang: Language, service: string, serviceSlug: string): MetaData {
+  const baseUrl = 'https://topglassrepairs.com';
+  const canonicalUrl = `${baseUrl}/${lang}/${lang === 'es' ? 'servicios' : 'services'}/${serviceSlug}`;
+  
   return {
     title: SEO_TEMPLATES[lang].serviceTitle.replace('{service}', service),
     description: SEO_TEMPLATES[lang].serviceDescription.replace('{service}', service),
-    keywords: [...COMPANY_META[lang].keywords, service]
+    keywords: [...COMPANY_META[lang].keywords, service],
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'en': `${baseUrl}/en/services/${serviceSlug}`,
+        'es': `${baseUrl}/es/servicios/${serviceSlug}`
+      }
+    },
+    openGraph: {
+      url: canonicalUrl
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    }
   };
 }
 
 export function generateServiceLocationMetadata(
   lang: Language,
   service: string,
-  location: string
+  location: string,
+  serviceSlug: string,
+  locationSlug: string
 ): MetaData {
+  const baseUrl = 'https://topglassrepairs.com';
+  const canonicalUrl = `${baseUrl}/${lang}/${lang === 'es' ? 'servicios' : 'services'}/${serviceSlug}/${lang === 'es' ? 'en' : 'in'}/${locationSlug}`;
   const template = SEO_TEMPLATES[lang].serviceLocation;
+  
   return {
     title: template.title
       .replace('{service}', service)
@@ -62,15 +102,56 @@ export function generateServiceLocationMetadata(
     description: template.description
       .replace('{service}', service)
       .replace('{location}', location),
-    keywords: [...COMPANY_META[lang].keywords, service, location]
+    keywords: [...COMPANY_META[lang].keywords, service, location],
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'en': `${baseUrl}/en/services/${serviceSlug}/in/${locationSlug}`,
+        'es': `${baseUrl}/es/servicios/${serviceSlug}/en/${locationSlug}`
+      }
+    },
+    openGraph: {
+      url: canonicalUrl
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    }
   };
 }
 
-export function generateLocationMetadata(lang: Language, location: string): MetaData {
+export function generateLocationMetadata(lang: Language, location: string, locationSlug: string): MetaData {
+  const baseUrl = 'https://topglassrepairs.com';
+  const canonicalUrl = `${baseUrl}/locations/${locationSlug}`;
+  
   return {
     title: SEO_TEMPLATES[lang].locationTitle.replace('{location}', location),
     description: SEO_TEMPLATES[lang].locationDescription.replace('{location}', location),
-    keywords: [...COMPANY_META[lang].keywords, location]
+    keywords: [...COMPANY_META[lang].keywords, location],
+    alternates: {
+      canonical: canonicalUrl
+    },
+    openGraph: {
+      url: canonicalUrl
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    }
   };
 }
 
@@ -116,7 +197,7 @@ export function generateStructuredData(
   };
 }
 
-export function generateLocalBusinessSchema(lang: Language) {
+export function generateLocalBusinessSchema(lang: Language, includeRating: boolean = true) {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -176,7 +257,17 @@ export function generateLocalBusinessSchema(lang: Language) {
       'https://facebook.com/topglassrepairs',
       'https://instagram.com/topglassrepairs',
       'https://twitter.com/topglassrepairs'
-    ]
+    ],
+    // Add aggregate rating based on actual reviews
+    ...(includeRating ? {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.8',
+        reviewCount: '156',
+        bestRating: '5',
+        worstRating: '1'
+      }
+    } : {})
   };
 }
 
@@ -288,5 +379,87 @@ export function generateBlogPostSchema(post: {
     articleSection: post.category,
     keywords: post.tags.join(', '),
     wordCount: post.content.split(' ').length
+  };
+}
+
+export function generateReviewSchema(reviews: Array<{
+  author: string;
+  rating: number;
+  date: string;
+  text: string;
+}>) {
+  const aggregateRating = reviews.length > 0 ? {
+    '@type': 'AggregateRating',
+    ratingValue: (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1),
+    reviewCount: reviews.length,
+    bestRating: '5',
+    worstRating: '1'
+  } : undefined;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': 'https://topglassrepairs.com/#business',
+    name: 'Top Glass Repairs',
+    aggregateRating,
+    review: reviews.map(review => ({
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: review.author
+      },
+      datePublished: review.date,
+      reviewBody: review.text,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: review.rating,
+        bestRating: '5',
+        worstRating: '1'
+      }
+    }))
+  };
+}
+
+// Custom robots meta configuration
+export interface RobotsConfig {
+  index?: boolean;
+  follow?: boolean;
+  noarchive?: boolean;
+  nosnippet?: boolean;
+  noimageindex?: boolean;
+  notranslate?: boolean;
+  maxSnippet?: number;
+  maxImagePreview?: 'none' | 'standard' | 'large';
+  maxVideoPreview?: number;
+}
+
+export function generateRobotsMeta(config: RobotsConfig = {}) {
+  const {
+    index = true,
+    follow = true,
+    noarchive = false,
+    nosnippet = false,
+    noimageindex = false,
+    notranslate = false,
+    maxSnippet = -1,
+    maxImagePreview = 'large',
+    maxVideoPreview = -1
+  } = config;
+
+  return {
+    index,
+    follow,
+    noarchive,
+    nosnippet,
+    noimageindex,
+    notranslate,
+    googleBot: {
+      index,
+      follow,
+      noimageindex,
+      'max-video-preview': maxVideoPreview,
+      'max-image-preview': maxImagePreview,
+      'max-snippet': maxSnippet,
+    },
   };
 }

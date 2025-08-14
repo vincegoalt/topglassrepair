@@ -117,6 +117,7 @@ export default function BlogPage() {
                     alt={blogPosts[0].title}
                     fill
                     className="object-cover"
+                    loading="lazy"
                   />
                 </div>
                 <div className="p-8 md:w-1/2">
@@ -154,6 +155,7 @@ export default function BlogPage() {
                     alt={post.title}
                     fill
                     className="object-cover"
+                    loading="lazy"
                   />
                 </div>
                 <div className="p-6">

@@ -253,6 +253,7 @@ export default function Reviews({
                     alt="Review image"
                     fill
                     className="object-cover"
+                    loading="lazy"
                   />
                 </div>
               )}

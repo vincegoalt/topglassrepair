@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { Language } from './types';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import { WebVitals } from './components/WebVitals';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang={lang}>
       <body className={inter.className}>
+        <WebVitals />
         <Header lang={lang} />
         <main>{children}</main>
         <Footer lang={lang} />

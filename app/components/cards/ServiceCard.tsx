@@ -45,6 +45,7 @@ export default function ServiceCard({
           alt={service.name[lang]}
           fill
           className="object-cover"
+          loading="lazy"
         />
         {variant === 'featured' && (
           <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
