@@ -117,7 +117,11 @@
   }
 
   .btn-secondary {
-    @apply glass text-primary hover:bg-white/40;
+    @apply glass text-primary;
+  }
+  
+  .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.4);
   }
 
   .btn-accent {
@@ -131,7 +135,11 @@
   }
 
   .btn-glass {
-    @apply glass text-white hover:bg-white/20;
+    @apply glass text-white;
+  }
+  
+  .btn-glass:hover {
+    background-color: rgba(255, 255, 255, 0.2);
   }
 
   /* Modern Card styles with depth */
@@ -230,11 +238,13 @@
   }
 
   .badge-primary {
-    @apply bg-primary/10 text-primary;
+    background-color: rgba(15, 76, 129, 0.1);
+    @apply text-primary;
   }
 
   .badge-accent {
-    @apply bg-accent/10 text-accent-700;
+    background-color: rgba(255, 179, 71, 0.1);
+    @apply text-orange-700;
   }
 
   /* Loading animation */
@@ -338,16 +348,18 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gradient-to-b from-primary to-primary/70 rounded-full;
+  background: linear-gradient(to bottom, #0F4C81, rgba(15, 76, 129, 0.7));
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply from-primary/90 to-primary/60;
+  background: linear-gradient(to bottom, rgba(15, 76, 129, 0.9), rgba(15, 76, 129, 0.6));
 }
 
 /* Focus styles with glow */
 .focus-ring {
-  @apply focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/30 focus-visible:ring-offset-2;
+  @apply focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2;
+  --tw-ring-color: rgba(15, 76, 129, 0.3);
 }
 
 /* Accessibility */

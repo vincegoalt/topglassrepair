@@ -10,6 +10,8 @@ import ServiceGrid from '../components/grids/ServiceGrid';
 import FAQSection from '../components/sections/FAQSection';
 import CallToAction from '../components/sections/CallToAction';
 import LongTailKeywords from '../components/sections/LongTailKeywords';
+import ServiceShowcase from '../components/sections/ServiceShowcase';
+import TrustIndicators from '../components/sections/TrustIndicators';
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = generateSeoMetadata('en');
@@ -79,6 +81,13 @@ export default function HomePage() {
         imageUrl="/images/glass-repair-replacement-company.jpeg"
         imageAlt="Professional glass and mirror services"
         lang="en"
+        size="large"
+        features={[
+          "Licensed & Insured",
+          "Same Day Service",
+          "Free Estimates",
+          "25+ Years Experience"
+        ]}
         actions={{
           primary: {
             label: "Call Now: (562) 436-2616",
@@ -92,11 +101,14 @@ export default function HomePage() {
         }}
       />
 
+      {/* Trust Indicators Section */}
+      <TrustIndicators lang="en" />
+
       {/* Services Section with Enhanced Content */}
-      <section className="section-padding bg-white">
+      <section className="py-20 bg-white section-pattern">
         <div className="container mx-auto px-4">
-          <h2 className="text-center mb-4">Professional Glass & Mirror Services in Los Angeles</h2>
-          <p className="text-center text-lg mb-12 max-w-3xl mx-auto">
+          <h2 className="text-center mb-4 animate-fade-in">Professional Glass & Mirror Services in Los Angeles</h2>
+          <p className="text-center text-lg mb-12 max-w-3xl mx-auto text-gray-600 animate-fade-in stagger-1">
             Top Glass Repairs has been serving Los Angeles County for over 20 years, providing expert glass repair, 
             replacement, and custom installation services. Whether you need emergency glass repair for your home, 
             commercial storefront glass replacement, or custom mirror installation, our certified technicians deliver 
@@ -106,76 +118,110 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Service Showcase Section */}
+      <ServiceShowcase lang="en" />
+
       {/* Location-Based SEO Section */}
-      <section className="section-padding bg-secondary">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-center mb-12">Glass Repair Services Across Los Angeles County</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-            {locations.slice(0, 16).map((location) => (
+          <h2 className="text-center mb-12 animate-fade-in">Glass Repair Services Across Los Angeles County</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+            {locations.slice(0, 16).map((location, index) => (
               <Link
                 key={location.id}
                 href={`/en/services/glass-repair/in/${location.slug.en}`}
-                className="block p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-center"
+                className="glass p-6 rounded-xl text-center group hover:scale-105 transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
-                <span className="font-semibold text-primary block">{location.name}</span>
-                <span className="text-sm text-neutral-600 mt-1 block">Glass Repair</span>
+                <span className="font-semibold text-primary block group-hover:text-accent transition-colors">{location.name}</span>
+                <span className="text-sm text-gray-600 mt-1 block">Glass Repair</span>
               </Link>
             ))}
           </div>
-          <p className="text-center text-neutral-600">
+          <p className="text-center text-gray-600 text-lg">
             Serving all of Los Angeles County including Beverly Hills, Santa Monica, Pasadena, Glendale, 
             Long Beach, Torrance, and surrounding areas with professional glass services.
           </p>
         </div>
       </section>
 
-      {/* Why Choose Us Section with Keywords */}
-      <section className="section-padding bg-white">
+      {/* Why Choose Us Section with Enhanced Design */}
+      <section className="py-20 bg-white section-pattern">
         <div className="container mx-auto px-4">
-          <h2 className="text-center mb-12">Why Choose Top Glass Repairs?</h2>
+          <h2 className="text-center mb-16 animate-fade-in">Why Choose Top Glass Repairs?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="p-6 bg-secondary rounded-lg">
-              <h3 className="text-xl font-bold mb-3">24/7 Emergency Glass Repair</h3>
-              <p className="text-neutral-600">
-                Broken glass can&apos;t wait. Our emergency response team is available 24 hours a day, 
-                7 days a week for urgent glass repair needs in Los Angeles. We&apos;ll secure your property 
+            <div className="feature-card group animate-fade-in stagger-1">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gradient">24/7 Emergency Glass Repair</h3>
+              <p className="text-gray-600">
+                Broken glass can't wait. Our emergency response team is available 24 hours a day, 
+                7 days a week for urgent glass repair needs in Los Angeles. We'll secure your property 
                 and complete repairs quickly.
               </p>
             </div>
-            <div className="p-6 bg-secondary rounded-lg">
-              <h3 className="text-xl font-bold mb-3">Licensed & Insured Professionals</h3>
-              <p className="text-neutral-600">
+            <div className="feature-card group animate-fade-in stagger-2">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gradient">Licensed & Insured Professionals</h3>
+              <p className="text-gray-600">
                 All our glass technicians are fully licensed, bonded, and insured in California. 
                 We maintain comprehensive liability coverage and follow all safety protocols for 
                 residential and commercial glass work.
               </p>
             </div>
-            <div className="p-6 bg-secondary rounded-lg">
-              <h3 className="text-xl font-bold mb-3">Quality Glass Products</h3>
-              <p className="text-neutral-600">
-                We use only premium quality glass from trusted manufacturers. Whether it&apos;s tempered 
+            <div className="feature-card group animate-fade-in stagger-3">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gradient">Quality Glass Products</h3>
+              <p className="text-gray-600">
+                We use only premium quality glass from trusted manufacturers. Whether it's tempered 
                 safety glass, energy-efficient double-pane windows, or custom mirrors, we ensure 
                 lasting durability.
               </p>
             </div>
-            <div className="p-6 bg-secondary rounded-lg">
-              <h3 className="text-xl font-bold mb-3">Competitive Pricing</h3>
-              <p className="text-neutral-600">
+            <div className="feature-card group animate-fade-in stagger-4">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gradient">Competitive Pricing</h3>
+              <p className="text-gray-600">
                 Get fair, transparent pricing on all glass services. We provide free estimates and 
                 work with insurance companies. No hidden fees or surprise charges - just honest, 
                 competitive rates.
               </p>
             </div>
-            <div className="p-6 bg-secondary rounded-lg">
-              <h3 className="text-xl font-bold mb-3">Same-Day Service Available</h3>
-              <p className="text-neutral-600">
+            <div className="feature-card group animate-fade-in stagger-1">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gradient">Same-Day Service Available</h3>
+              <p className="text-gray-600">
                 For non-emergency glass repairs and replacements, we offer convenient same-day 
                 service throughout Los Angeles. Call before noon for same-day scheduling availability.
               </p>
             </div>
-            <div className="p-6 bg-secondary rounded-lg">
-              <h3 className="text-xl font-bold mb-3">Warranty Protection</h3>
-              <p className="text-neutral-600">
+            <div className="feature-card group animate-fade-in stagger-2">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gradient">Warranty Protection</h3>
+              <p className="text-gray-600">
                 All our glass installations come with comprehensive warranty coverage. We stand 
                 behind our work with guarantees on both materials and labor for your peace of mind.
               </p>

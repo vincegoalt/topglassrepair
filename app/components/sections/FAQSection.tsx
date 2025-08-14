@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { FAQ, Language } from "@/app/types";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 interface FAQSectionProps {
   title: string;
@@ -41,8 +40,11 @@ export default function FAQSection({
   };
 
   return (
-    <section className="py-12 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 md:py-24 bg-white section-pattern relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-accent/5 to-primary/5 rounded-full blur-3xl" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Schema markup */}
         <script
           type="application/ld+json"
@@ -50,46 +52,64 @@ export default function FAQSection({
         />
 
         {/* Section header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">
             {title}
           </h2>
           {description && (
-            <p className="mt-4 text-lg leading-6 text-gray-500">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               {description}
             </p>
           )}
         </div>
 
         {/* FAQ list */}
-        <div className="max-w-3xl mx-auto divide-y divide-gray-200">
+        <div className="max-w-4xl mx-auto space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="py-6">
+            <div 
+              key={index} 
+              className="glass rounded-2xl overflow-hidden transform transition-all duration-300 hover:scale-[1.02]"
+            >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="flex w-full items-start justify-between text-left"
+                className="flex w-full items-center justify-between p-6 text-left transition-colors duration-200 hover:bg-white/50"
                 aria-expanded={openIndex === index}
                 aria-controls={`faq-answer-${index}`}
               >
-                <span className="text-lg font-medium text-gray-900">
-                  {processText(faq.question)}
-                </span>
-                <span className="ml-6 flex-shrink-0">
-                  <ChevronDownIcon
-                    className={`h-6 w-6 transform ${
+                <div className="flex items-start gap-4 flex-1">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold">{index + 1}</span>
+                  </div>
+                  <h3 className="text-lg md:text-xl font-semibold text-gray-900 pr-4">
+                    {processText(faq.question)}
+                  </h3>
+                </div>
+                <div className="ml-6 flex-shrink-0">
+                  <svg 
+                    className={`w-6 h-6 transform transition-transform duration-300 ${
                       openIndex === index ? "rotate-180" : ""
-                    } text-gray-500`}
-                    aria-hidden="true"
-                  />
-                </span>
+                    } text-primary`}
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
               </button>
               <div
                 id={`faq-answer-${index}`}
-                className={`mt-2 ${openIndex === index ? "block" : "hidden"}`}
+                className={`transition-all duration-300 ${
+                  openIndex === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                } overflow-hidden`}
               >
-                <p className="text-base text-gray-500">
-                  {processText(faq.answer)}
-                </p>
+                <div className="px-6 pb-6">
+                  <div className="pl-14 pr-4">
+                    <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+                      {processText(faq.answer)}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           ))}

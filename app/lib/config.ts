@@ -9,7 +9,7 @@ export const CONTACT_INFO: ContactInfo = {
   hours: {
     'Monday-Friday': '8:00 AM - 6:00 PM',
     'Saturday': '9:00 AM - 4:00 PM',
-    'Sunday': 'Closed'
+    'Sunday': '9:00 AM - 4:00 PM'
   }
 };
 

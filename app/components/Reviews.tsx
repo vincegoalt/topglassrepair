@@ -19,7 +19,8 @@ interface Review {
 }
 
 interface ReviewsProps {
-  reviews: Review[];
+  lang: 'en' | 'es';
+  reviews?: Review[];
   showForm?: boolean;
   serviceFilter?: string;
   locationFilter?: string;
@@ -84,6 +85,7 @@ const sampleReviews: Review[] = [
 ];
 
 export default function Reviews({ 
+  lang,
   reviews = sampleReviews, 
   showForm = false,
   serviceFilter,

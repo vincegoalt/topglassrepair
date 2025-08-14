@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Language } from '@/app/types';
+import ShowcaseImageSplit from '@/app/components/ShowcaseImageSplit';
 
 interface ShowcaseItem {
   id: string;
@@ -19,6 +20,7 @@ interface ShowcaseItem {
   };
   duration: string;
   location: string;
+  isSplitImage?: boolean;
 }
 
 interface ServiceShowcaseProps {
@@ -30,8 +32,8 @@ const defaultShowcaseItems: ShowcaseItem[] = [
   {
     id: '1',
     service: 'window-glass-replacement',
-    beforeImage: '/images/showcase/window-before.jpg',
-    afterImage: '/images/showcase/window-after.jpg',
+    beforeImage: 'https://portageglassandmirror.com/wp-content/uploads/2025/02/foggy-window-with-condensation.jpeg',
+    afterImage: 'https://portageglassandmirror.com/wp-content/uploads/2024/09/foggy-window-gpai.jpg',
     title: {
       en: 'Foggy Double-Pane Window Replacement',
       es: 'Reemplazo de Ventana de Doble Panel Empañada'
@@ -46,8 +48,8 @@ const defaultShowcaseItems: ShowcaseItem[] = [
   {
     id: '2',
     service: 'shower-door-installation',
-    beforeImage: '/images/showcase/shower-before.jpg',
-    afterImage: '/images/showcase/shower-after.jpg',
+    beforeImage: 'https://abcglassandmirror.com/wp-content/uploads/2022/10/Frameless-Shower-pic-02.jpg',
+    afterImage: 'https://abcglassandmirror.com/wp-content/uploads/2022/10/Frameless-Shower-pic-02.jpg',
     title: {
       en: 'Frameless Shower Door Installation',
       es: 'Instalación de Puerta de Ducha Sin Marco'
@@ -57,13 +59,14 @@ const defaultShowcaseItems: ShowcaseItem[] = [
       es: 'Transformamos el baño con elegante cerramiento de ducha sin marco'
     },
     duration: '4 hours',
-    location: 'Santa Monica, CA'
+    location: 'Santa Monica, CA',
+    isSplitImage: true
   },
   {
     id: '3',
     service: 'storefront-glass',
-    beforeImage: '/images/showcase/storefront-before.jpg',
-    afterImage: '/images/showcase/storefront-after.jpg',
+    beforeImage: 'https://images.squarespace-cdn.com/content/v1/5e7e17212957cc2180095580/6331c7a2-0b38-4461-94d8-5998137dcee2/Brownstone+South+Detail.jpg',
+    afterImage: 'https://images.squarespace-cdn.com/content/v1/5e7e17212957cc2180095580/6331c7a2-0b38-4461-94d8-5998137dcee2/Brownstone+South+Detail.jpg',
     title: {
       en: 'Commercial Storefront Renovation',
       es: 'Renovación de Frente Comercial'
@@ -102,73 +105,83 @@ export default function ServiceShowcase({
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Before/After Viewer */}
           <div className="relative">
-            <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
-              {/* Before Image */}
-              <div className={`absolute inset-0 transition-opacity duration-500 ${
-                isShowing === 'before' ? 'opacity-100' : 'opacity-0'
-              }`}>
-                <Image
-                  src={activeItem.beforeImage}
-                  alt={`Before: ${activeItem.title[lang]}`}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute top-4 left-4 badge badge-primary">
-                  {lang === 'en' ? 'Before' : 'Antes'}
+            {activeItem.isSplitImage ? (
+              <ShowcaseImageSplit
+                imageUrl={activeItem.beforeImage}
+                alt={activeItem.title[lang]}
+                lang={lang}
+              />
+            ) : (
+              <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+                {/* Before Image */}
+                <div className={`absolute inset-0 transition-opacity duration-500 ${
+                  isShowing === 'before' ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  <Image
+                    src={activeItem.beforeImage}
+                    alt={`Before: ${activeItem.title[lang]}`}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute top-4 left-4 badge badge-primary">
+                    {lang === 'en' ? 'Before' : 'Antes'}
+                  </div>
+                </div>
+
+                {/* After Image */}
+                <div className={`absolute inset-0 transition-opacity duration-500 ${
+                  isShowing === 'after' ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  <Image
+                    src={activeItem.afterImage}
+                    alt={`After: ${activeItem.title[lang]}`}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute top-4 left-4 badge badge-accent">
+                    {lang === 'en' ? 'After' : 'Después'}
+                  </div>
+                </div>
+
+                {/* Toggle Button */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                  <button
+                    onClick={() => setIsShowing(isShowing === 'before' ? 'after' : 'before')}
+                    className="btn btn-glass"
+                  >
+                    {isShowing === 'before' 
+                      ? (lang === 'en' ? 'Show After' : 'Ver Después')
+                      : (lang === 'en' ? 'Show Before' : 'Ver Antes')}
+                  </button>
                 </div>
               </div>
+            )}
 
-              {/* After Image */}
-              <div className={`absolute inset-0 transition-opacity duration-500 ${
-                isShowing === 'after' ? 'opacity-100' : 'opacity-0'
-              }`}>
-                <Image
-                  src={activeItem.afterImage}
-                  alt={`After: ${activeItem.title[lang]}`}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute top-4 left-4 badge badge-accent">
-                  {lang === 'en' ? 'After' : 'Después'}
-                </div>
-              </div>
-
-              {/* Toggle Button */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+            {/* Comparison Slider - only show for non-split images */}
+            {!activeItem.isSplitImage && (
+              <div className="mt-4 flex justify-center gap-2">
                 <button
-                  onClick={() => setIsShowing(isShowing === 'before' ? 'after' : 'before')}
-                  className="btn btn-glass"
+                  onClick={() => setIsShowing('before')}
+                  className={`px-4 py-2 rounded-full transition-all ${
+                    isShowing === 'before' 
+                      ? 'bg-primary text-white' 
+                      : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                  }`}
                 >
-                  {isShowing === 'before' 
-                    ? (lang === 'en' ? 'Show After' : 'Ver Después')
-                    : (lang === 'en' ? 'Show Before' : 'Ver Antes')}
+                  {lang === 'en' ? 'Before' : 'Antes'}
+                </button>
+                <button
+                  onClick={() => setIsShowing('after')}
+                  className={`px-4 py-2 rounded-full transition-all ${
+                    isShowing === 'after' 
+                      ? 'bg-accent text-white' 
+                      : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                  }`}
+                >
+                  {lang === 'en' ? 'After' : 'Después'}
                 </button>
               </div>
-            </div>
-
-            {/* Comparison Slider */}
-            <div className="mt-4 flex justify-center gap-2">
-              <button
-                onClick={() => setIsShowing('before')}
-                className={`px-4 py-2 rounded-full transition-all ${
-                  isShowing === 'before' 
-                    ? 'bg-primary text-white' 
-                    : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-                }`}
-              >
-                {lang === 'en' ? 'Before' : 'Antes'}
-              </button>
-              <button
-                onClick={() => setIsShowing('after')}
-                className={`px-4 py-2 rounded-full transition-all ${
-                  isShowing === 'after' 
-                    ? 'bg-accent text-white' 
-                    : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-                }`}
-              >
-                {lang === 'en' ? 'After' : 'Después'}
-              </button>
-            </div>
+            )}
           </div>
 
           {/* Project Details and Selector */}

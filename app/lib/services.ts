@@ -69,7 +69,7 @@ export const services: Service[] = [
       en: 'Professional window glass replacement services for residential and commercial properties. We handle all types of window repairs and replacements with precision and care.',
       es: 'Servicios profesionales de reemplazo de vidrios para ventanas en propiedades residenciales y comerciales. Manejamos todo tipo de reparaciones y reemplazos de ventanas con precisión y cuidado.'
     },
-    imageUrl: '/images/windows-repair-near-me.jpg',
+    imageUrl: 'https://portageglassandmirror.com/wp-content/uploads/2025/02/foggy-window-panes.jpeg',
     faqs: {
       en: [
         {
@@ -193,7 +193,7 @@ export const services: Service[] = [
       en: 'Expert window glass repair services to fix cracks, chips, and other damage. Fast, reliable service to restore your windows to perfect condition.',
       es: 'Servicios expertos de reparación de vidrios para arreglar grietas, astillas y otros daños. Servicio rápido y confiable para restaurar sus ventanas a una condición perfecta.'
     },
-    imageUrl: '/images/repair-glass-windows.jpg',
+    imageUrl: 'https://portageglassandmirror.com/wp-content/uploads/2024/09/foggy-window-gpai.jpg',
     faqs: {
       en: [
         {
@@ -737,7 +737,7 @@ export const services: Service[] = [
       en: 'Comprehensive commercial glass solutions for businesses. From storefronts to office partitions, we handle all commercial glass needs.',
       es: 'Soluciones integrales de vidrios comerciales para empresas. Desde fachadas hasta particiones de oficina, manejamos todas las necesidades de vidrios comerciales.'
     },
-    imageUrl: '/images/residential-glass-services.jpg',
+    imageUrl: 'https://images.squarespace-cdn.com/content/v1/5e7e17212957cc2180095580/6331c7a2-0b38-4461-94d8-5998137dcee2/Brownstone+South+Detail.jpg',
     faqs: {
       en: [
         {

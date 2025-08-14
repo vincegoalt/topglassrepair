@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { onCLS, onFCP, onFID, onLCP, onTTFB, onINP } from 'web-vitals';
+import { onCLS, onFCP, onLCP, onTTFB, onINP } from 'web-vitals';
 
 const vitalsUrl = process.env.NEXT_PUBLIC_VITALS_URL;
 
@@ -55,7 +55,6 @@ export function WebVitals() {
     // Core Web Vitals
     onCLS(sendToAnalytics);
     onFCP(sendToAnalytics);
-    onFID(sendToAnalytics);
     onLCP(sendToAnalytics);
     onTTFB(sendToAnalytics);
     onINP(sendToAnalytics);
@@ -85,7 +84,6 @@ export const metricThresholds = {
   CLS: { good: 0.1, needsImprovement: 0.25 },
   FCP: { good: 1800, needsImprovement: 3000 },
   LCP: { good: 2500, needsImprovement: 4000 },
-  FID: { good: 100, needsImprovement: 300 },
   INP: { good: 200, needsImprovement: 500 },
   TTFB: { good: 800, needsImprovement: 1800 },
 };

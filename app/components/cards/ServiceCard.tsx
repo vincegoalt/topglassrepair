@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Service, Language } from '@/app/types';
 import { getTranslation } from '@/app/utils/languageClient';
+import { getServiceIcon } from '@/app/components/icons/ServiceIcons';
 
 interface ServiceCardProps {
   service: Service;
@@ -52,10 +53,10 @@ export default function ServiceCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
         
         {/* Service icon or badge */}
-        <div className="absolute top-4 right-4 glass p-3 rounded-full">
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-          </svg>
+        <div className="absolute top-4 right-4 glass-dark p-4 rounded-2xl backdrop-blur-lg border border-white/20">
+          <div className="w-8 h-8 text-white">
+            {getServiceIcon(service.slug[lang])}
+          </div>
         </div>
         
         {variant === 'featured' && (
@@ -66,13 +67,16 @@ export default function ServiceCard({
       </div>
 
       {/* Content with enhanced styling */}
-      <div className="p-6">
-        <h3 className="text-2xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">
+      <div className="p-6 relative">
+        {/* Subtle gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-secondary/10 opacity-50" />
+        <div className="relative z-10">
+        <h3 className="text-2xl font-bold mb-3 text-gradient group-hover:scale-105 transition-transform origin-left">
           {service.name[lang]}
         </h3>
         
         {variant !== 'compact' && (
-          <p className="text-gray-600 mb-4 line-clamp-2">
+          <p className="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
             {service.description[lang]}
           </p>
         )}
@@ -82,9 +86,9 @@ export default function ServiceCard({
           <div className="mt-4 space-y-2">
             {service.features[lang].slice(0, 3).map((feature, index) => (
               <div key={index} className="flex items-center text-sm">
-                <div className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                <div className="w-5 h-5 rounded-full bg-gradient-to-br from-accent to-accent/60 flex items-center justify-center mr-3 shadow-sm">
                   <svg
-                    className="w-3 h-3 text-accent"
+                    className="w-3 h-3 text-white"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -111,10 +115,11 @@ export default function ServiceCard({
           </span>
           
           {variant === 'featured' && (
-            <span className="badge badge-primary">
+            <span className="px-4 py-2 bg-gradient-to-r from-accent to-orange-500 text-white text-sm font-semibold rounded-full shadow-md group-hover:shadow-lg transition-shadow">
               {lang === 'en' ? 'Get Quote' : 'Cotización'}
             </span>
           )}
+        </div>
         </div>
       </div>
     </Link>

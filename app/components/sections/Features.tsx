@@ -14,6 +14,7 @@ interface FeaturesProps {
   variant?: 'grid' | 'list' | 'cards';
   columns?: 2 | 3 | 4;
   background?: 'white' | 'light' | 'primary';
+  iconClassName?: string;
 }
 
 export default function Features({
@@ -23,7 +24,8 @@ export default function Features({
   lang,
   variant = 'grid',
   columns = 3,
-  background = 'white'
+  background = 'white',
+  iconClassName
 }: FeaturesProps) {
   // Background styles
   const backgroundStyles = {
@@ -45,7 +47,7 @@ export default function Features({
       case 'list':
         return 'flex items-start space-x-4 p-4';
       case 'cards':
-        return 'bg-white rounded-lg shadow-md p-6 text-center';
+        return 'feature-card text-center transform transition-all duration-300 hover:-translate-y-1';
       default: // grid
         return 'text-center p-6';
     }
@@ -53,14 +55,14 @@ export default function Features({
 
   // Icon container styles based on variant and background
   const getIconStyles = () => {
-    const baseStyles = 'text-4xl mb-4';
+    const baseStyles = 'mb-4';
+    const sizeStyles = typeof features[0]?.icon === 'string' ? 'text-4xl' : 'w-12 h-12 mx-auto';
+    const colorStyles = iconClassName || (background === 'primary' ? 'text-white' : 'text-primary');
+    
     if (variant === 'list') {
-      return `${baseStyles} text-primary`;
+      return `${baseStyles} ${sizeStyles} ${colorStyles} flex-shrink-0`;
     }
-    if (background === 'primary') {
-      return `${baseStyles} text-white`;
-    }
-    return `${baseStyles} text-primary`;
+    return `${baseStyles} ${sizeStyles} ${colorStyles}`;
   };
 
   return (
@@ -101,11 +103,13 @@ export default function Features({
             >
               {/* Icon */}
               {feature.icon && (
-                <div className={getIconStyles()}>
+                <div className={`${getIconStyles()} ${variant === 'cards' ? 'p-4 glass rounded-2xl inline-block' : ''}`}>
                   {typeof feature.icon === 'string' ? (
                     <span>{feature.icon}</span>
                   ) : (
-                    feature.icon
+                    <div className="flex items-center justify-center">
+                      {feature.icon}
+                    </div>
                   )}
                 </div>
               )}
@@ -113,15 +117,16 @@ export default function Features({
               {/* Content */}
               <div className={variant === 'list' ? 'flex-1' : ''}>
                 <h3 className={`
-                  font-bold mb-2
-                  ${variant === 'list' ? 'text-xl' : 'text-lg'}
-                  ${background === 'primary' ? 'text-white' : ''}
+                  font-bold mb-3
+                  ${variant === 'list' ? 'text-xl' : 'text-xl'}
+                  ${background === 'primary' ? 'text-white' : 'text-gradient'}
                 `}>
                   {feature.title}
                 </h3>
                 <p className={`
-                  ${background === 'primary' ? 'text-white/90' : 'text-neutral-600'}
-                  ${variant === 'list' ? 'text-base' : 'text-sm'}
+                  ${background === 'primary' ? 'text-white/90' : 'text-gray-600'}
+                  ${variant === 'list' ? 'text-base' : 'text-base'}
+                  leading-relaxed
                 `}>
                   {feature.description}
                 </p>
