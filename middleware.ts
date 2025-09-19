@@ -21,20 +21,32 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  // Skip API routes, _next paths
+  if (
+    pathname.startsWith('/api/') ||
+    pathname.startsWith('/_next/') ||
+    pathname.includes('/_next')
+  ) {
+    return NextResponse.next()
+  }
+
   // Get the first segment after the leading slash
   const segments = pathname.split('/')
   const langSegment = segments[1]
 
-  // If no language segment or invalid language, redirect to /en
-  if (!langSegment || !['en', 'es'].includes(langSegment)) {
-    const url = new URL(`/en${pathname}`, request.url)
-    return NextResponse.redirect(url)
+  // Check if we have a valid language prefix
+  const hasValidLang = langSegment && ['en', 'es'].includes(langSegment)
+
+  // If path starts with valid language, continue without redirect
+  if (hasValidLang) {
+    const response = NextResponse.next()
+    response.headers.set('x-invoke-path', pathname)
+    return response
   }
 
-  // For all other routes, set x-invoke-path header and continue
-  const response = NextResponse.next()
-  response.headers.set('x-invoke-path', pathname)
-  return response
+  // If no language segment or invalid language, redirect to /en version
+  const url = new URL(`/en${pathname}`, request.url)
+  return NextResponse.redirect(url)
 }
 
 // Configure the middleware to run on all routes except static files
@@ -44,11 +56,10 @@ export const config = {
      * Match all request paths except for:
      * - _next/static (static files)
      * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
+     * - favicon.ico, icon.png, apple-icon.png (favicon files)
      * - public folder
+     * - api routes
      */
-    '/((?!_next/static|_next/image|favicon.ico|public/).*)',
-    // Include root (/) when matching all routes
-    '/'
+    '/((?!api|_next/static|_next/image|favicon.ico|icon.png|apple-icon.png|public).*)'
   ]
 }
