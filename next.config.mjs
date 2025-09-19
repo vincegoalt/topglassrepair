@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+﻿/** @type {import('next').NextConfig} */
 const nextConfig = {
   // Image optimization configuration
   images: {
@@ -24,10 +24,10 @@ const nextConfig = {
         has: [
           {
             type: 'host',
-            value: 'www.topglassrepairs.com'
+            value: 'topglassrepairs.com'
           }
         ],
-        destination: 'https://topglassrepairs.com/:path*',
+        destination: 'https://www.topglassrepairs.com/:path*',
         permanent: true
       }
     ];
