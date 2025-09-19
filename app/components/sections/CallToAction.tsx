@@ -47,7 +47,7 @@ export default function CallToAction({
 
   // Text color based on background
   const textColor = background === 'primary' ? 'text-white' : 'text-neutral-900';
-  const descriptionColor = background === 'primary' ? 'text-white/90' : 'text-neutral-600';
+  const descriptionColor = background === 'primary' ? 'text-white' : 'text-neutral-600';
 
   return (
     <section className={`py-12 md:py-20 ${backgroundStyles}`}>
@@ -146,23 +146,23 @@ export default function CallToAction({
             </div>
             <div className="flex flex-col space-y-4">
               {/* Contact Information */}
-              <div className={`text-lg ${textColor}`}>
-                <p className="font-bold mb-2">
+              <div className="text-lg">
+                <p className="font-bold mb-2 text-white">
                   {getTranslation('contact', lang)}:
                 </p>
                 <p>
-                  <a 
+                  <a
                     href={`tel:${CONTACT_INFO.office}`}
-                    className="hover:underline"
+                    className="text-white hover:text-accent transition-colors"
                   >
                     {CONTACT_INFO.office}
                   </a>
                 </p>
-                <p className="text-sm mt-1">
+                <p className="text-sm mt-1 text-white">
                   {getTranslation('emergency', lang)}:{' '}
-                  <a 
+                  <a
                     href={`tel:${CONTACT_INFO.emergency}`}
-                    className="font-bold hover:underline"
+                    className="font-bold text-accent hover:text-accent/80 transition-colors"
                   >
                     {CONTACT_INFO.emergency}
                   </a>
