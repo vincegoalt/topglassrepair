@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { services } from '../../../../../lib/services';
-import { locations } from '../../../../../lib/locations';
+import { notFound, redirect } from 'next/navigation';
+import { findServiceBySlug, services } from '../../../../../lib/services';
+import { findLocationBySlug, locations } from '../../../../../lib/locations';
 import { locationContent, getLocationSchema, serviceAreaKeywords } from '../../../../../lib/seo-content';
 import { 
   generateServiceLocationMetadata, 
@@ -28,22 +28,26 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { service: string; location: string } }): Promise<Metadata> {
-  const service = services.find(s => s.slug.en === params.service);
-  const location = locations.find(l => l.slug.en === params.location);
-  
-  if (!service || !location) return {};
-  
-  const metadata = generateServiceLocationMetadata('en', service.name.en, location.name, service.slug.en, location.slug.en);
-  const keywords = serviceAreaKeywords[params.location as keyof typeof serviceAreaKeywords] || [];
-  
+  const serviceMatch = findServiceBySlug(params.service, 'en');
+  const locationMatch = findLocationBySlug(params.location, 'en');
+
+  if (!serviceMatch || !locationMatch) return {};
+
+  const { service, canonicalSlug: serviceSlug } = serviceMatch;
+  const { location, canonicalSlug: locationSlug } = locationMatch;
+
+  const metadata = generateServiceLocationMetadata('en', service.name.en, location.name, serviceSlug, locationSlug);
+  const keywordSource = serviceAreaKeywords[location.slug.en as keyof typeof serviceAreaKeywords] || [];
+  const keywords = new Set([...(metadata.keywords || []), ...keywordSource, service.name.en, location.name]);
+
   return {
     ...metadata,
-    keywords: [...(metadata.keywords || []), ...keywords],
+    keywords: Array.from(keywords),
     alternates: {
-      canonical: `https://topglassrepairs.com/en/services/${params.service}/in/${params.location}`,
+      canonical: `https://topglassrepairs.com/en/services/${serviceSlug}/in/${locationSlug}`,
       languages: {
-        'en-US': `/en/services/${params.service}/in/${params.location}`,
-        'es-ES': `/es/servicios/${service.slug.es}/en/${params.location}`,
+        'en-US': `/en/services/${serviceSlug}/in/${locationSlug}`,
+        'es-ES': `/es/servicios/${service.slug.es}/en/${location.slug.es}`,
       },
     },
   };
@@ -89,16 +93,30 @@ const localFAQs = {
 };
 
 export default function ServiceLocationPage({ params }: { params: { service: string; location: string } }) {
-  const service = services.find(s => s.slug.en === params.service);
-  const location = locations.find(l => l.slug.en === params.location);
-  const locationData = locationContent[params.location];
-  
-  if (!service || !location) {
+  const serviceMatch = findServiceBySlug(params.service, 'en');
+  const locationMatch = findLocationBySlug(params.location, 'en');
+
+  if (!serviceMatch || !locationMatch) {
     notFound();
   }
 
+  if (serviceMatch.shouldRedirect || locationMatch.shouldRedirect) {
+    redirect(`/en/services/${serviceMatch.canonicalSlug}/in/${locationMatch.canonicalSlug}`);
+  }
+
+  const { service } = serviceMatch;
+  const { location } = locationMatch;
+  const canonicalLocationSlug = location.slug.en;
+  const locationData = locationContent[canonicalLocationSlug];
+
   // Get FAQs for this service
-  const serviceFAQs = localFAQs[params.service as keyof typeof localFAQs] || localFAQs['glass-repair'];
+  const faqKey = service.slug.en === 'window-glass-replacement'
+    ? 'window-replacement'
+    : service.slug.en === 'window-glass-repair'
+      ? 'glass-repair'
+      : service.slug.en;
+
+  const serviceFAQs = localFAQs[faqKey as keyof typeof localFAQs] || localFAQs['glass-repair'];
   const faqs = serviceFAQs.map(faq => ({
     question: faq.question.replace('{location}', location.name),
     answer: faq.answer.replace(/{location}/g, location.name)
@@ -108,8 +126,8 @@ export default function ServiceLocationPage({ params }: { params: { service: str
   const breadcrumbSchema = generateBreadcrumbSchema('en', [
     { name: 'Home', url: 'https://topglassrepairs.com/en' },
     { name: 'Services', url: 'https://topglassrepairs.com/en/services' },
-    { name: service.name.en, url: `https://topglassrepairs.com/en/services/${params.service}` },
-    { name: location.name, url: `https://topglassrepairs.com/en/services/${params.service}/in/${params.location}` }
+    { name: service.name.en, url: `https://topglassrepairs.com/en/services/${service.slug.en}` },
+    { name: location.name, url: `https://topglassrepairs.com/en/services/${service.slug.en}/in/${location.slug.en}` }
   ]);
 
   const serviceSchema = generateServiceSchema('en', {
@@ -118,7 +136,7 @@ export default function ServiceLocationPage({ params }: { params: { service: str
     category: service.name.en
   });
 
-  const locationSchema = getLocationSchema(params.location, 'en');
+  const locationSchema = getLocationSchema(canonicalLocationSlug, 'en');
   const faqSchema = generateFAQSchema('en', faqs);
   const businessSchema = generateLocalBusinessSchema('en');
 
@@ -143,10 +161,10 @@ export default function ServiceLocationPage({ params }: { params: { service: str
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative container mx-auto px-4 text-white">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 heading-solid text-white">
               {locationData ? locationData.hero.title : `${service.name.en} in ${location.name}`}
             </h1>
-            <p className="text-xl mb-8">
+            <p className="text-xl text-white/90 mb-8">
               {locationData ? locationData.hero.subtitle : `Professional ${service.name.en.toLowerCase()} services in ${location.name}, CA. Available 24/7 for emergencies.`}
             </p>
             <div className="flex flex-wrap gap-4">
@@ -169,7 +187,7 @@ export default function ServiceLocationPage({ params }: { params: { service: str
             <li className="text-neutral-500">/</li>
             <li><Link href="/en/services" className="text-primary hover:underline">Services</Link></li>
             <li className="text-neutral-500">/</li>
-            <li><Link href={`/en/services/${params.service}`} className="text-primary hover:underline">{service.name.en}</Link></li>
+            <li><Link href={`/en/services/${service.slug.en}`} className="text-primary hover:underline">{service.name.en}</Link></li>
             <li className="text-neutral-500">/</li>
             <li className="text-neutral-700">{location.name}</li>
           </ol>
@@ -301,7 +319,7 @@ export default function ServiceLocationPage({ params }: { params: { service: str
             <div className="lg:col-span-1">
               {/* Contact Card */}
               <div className="bg-primary text-white rounded-lg p-6 mb-6 sticky top-6">
-                <h3 className="text-xl font-bold mb-4">
+                <h3 className="text-xl font-bold mb-4 heading-solid text-white">
                   Get {service.name.en} in {location.name} Today!
                 </h3>
                 <div className="space-y-4">
@@ -312,16 +330,16 @@ export default function ServiceLocationPage({ params }: { params: { service: str
                     Request Free Quote
                   </Link>
                   <div className="pt-4 border-t border-white/20">
-                    <p className="text-sm mb-2">Business Hours:</p>
-                    <ul className="text-sm space-y-1">
+                    <p className="text-sm text-white/80 mb-2">Business Hours:</p>
+                    <ul className="text-sm text-white/80 space-y-1">
                       <li>Mon-Fri: 8:00 AM - 6:00 PM</li>
                       <li>Saturday: 9:00 AM - 4:00 PM</li>
                       <li>Sunday: Emergency Only</li>
                     </ul>
                   </div>
                   <div className="pt-4 border-t border-white/20">
-                    <p className="text-sm mb-2">Emergency Service:</p>
-                    <p className="text-lg font-semibold">Available 24/7</p>
+                    <p className="text-sm text-white/80 mb-2">Emergency Service:</p>
+                    <p className="text-lg font-semibold text-white">Available 24/7</p>
                   </div>
                 </div>
               </div>
@@ -330,10 +348,10 @@ export default function ServiceLocationPage({ params }: { params: { service: str
               <div className="bg-secondary rounded-lg p-6 mb-6">
                 <h3 className="font-bold mb-4">Nearby Service Areas</h3>
                 <ul className="space-y-2">
-                  {locations.filter(l => l.slug.en !== params.location).slice(0, 5).map((nearbyLocation) => (
+                  {locations.filter(l => l.slug.en !== location.slug.en).slice(0, 5).map((nearbyLocation) => (
                     <li key={nearbyLocation.id}>
                       <Link 
-                        href={`/en/services/${params.service}/in/${nearbyLocation.slug.en}`}
+                        href={`/en/services/${service.slug.en}/in/${nearbyLocation.slug.en}`}
                         className="text-primary hover:underline"
                       >
                         {service.name.en} in {nearbyLocation.name}
@@ -347,10 +365,10 @@ export default function ServiceLocationPage({ params }: { params: { service: str
               <div className="bg-neutral-100 rounded-lg p-6">
                 <h3 className="font-bold mb-4">Other Services in {location.name}</h3>
                 <ul className="space-y-2">
-                  {services.filter(s => s.slug.en !== params.service).map((otherService) => (
+                  {services.filter(s => s.slug.en !== service.slug.en).map((otherService) => (
                     <li key={otherService.id}>
                       <Link 
-                        href={`/en/services/${otherService.slug.en}/in/${params.location}`}
+                        href={`/en/services/${otherService.slug.en}/in/${location.slug.en}`}
                         className="text-primary hover:underline"
                       >
                         {otherService.name.en}

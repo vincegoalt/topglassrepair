@@ -68,9 +68,20 @@ export const ServiceIcons = {
   )
 };
 
+ServiceIcons['shower-doors'] = ServiceIcons['shower-door-installation'];
+ServiceIcons['custom-mirrors'] = ServiceIcons['mirror-installation'];
+ServiceIcons['glass-table-tops'] = ServiceIcons['glass-tabletop-replacement'];
+ServiceIcons['storefront-glass'] = ServiceIcons['commercial-storefront'];
+ServiceIcons['emergency-glass-replacement'] = ServiceIcons['emergency-glass-service'];
+ServiceIcons['emergency-glass'] = ServiceIcons['emergency-glass-service'];
+
 export function getServiceIcon(serviceSlug: string) {
-  // Normalize the slug to match our icon keys
-  const normalizedSlug = serviceSlug.toLowerCase().replace(/-/g, '-');
+  const normalizedSlug = serviceSlug
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
   
   // Try to find exact match
   if (ServiceIcons[normalizedSlug as keyof typeof ServiceIcons]) {

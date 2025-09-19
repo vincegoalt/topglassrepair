@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { Inter } from 'next/font/google';
 import { Language } from './types';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
 import { WebVitals } from './components/WebVitals';
 import './globals.css';
 
@@ -21,16 +19,22 @@ export default function RootLayout({
 }) {
   // Get language from URL
   const headersList = headers();
-  const pathname = headersList.get('x-invoke-path') || '';
-  const lang = pathname.startsWith('/es') ? 'es' : 'en';
+  const pathCandidates = [
+    headersList.get('x-invoke-path'),
+    headersList.get('x-matched-path'),
+    headersList.get('x-next-pathname'),
+    headersList.get('x-next-url'),
+  ];
+
+  const pathnameCandidate = pathCandidates.find(Boolean) || '';
+  const normalizedPath = pathnameCandidate.split('?')[0] || '';
+  const lang = normalizedPath.startsWith('/es') || normalizedPath.includes('/es/') ? 'es' : 'en';
 
   return (
     <html lang={lang}>
       <body className={inter.className}>
         <WebVitals />
-        <Header lang={lang} />
-        <main>{children}</main>
-        <Footer lang={lang} />
+        {children}
       </body>
     </html>
   );

@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { generateMetadata as generateSeoMetadata, generateStructuredData } from '@/app/utils/seo';
-import { services } from '@/app/lib/services';
-import { locations } from '@/app/lib/locations';
+import { notFound, redirect } from 'next/navigation';
+import { generateServiceLocationMetadata, generateStructuredData } from '@/app/utils/seo';
+import { findServiceBySlug, services } from '@/app/lib/services';
+import { findLocationBySlug, locations } from '@/app/lib/locations';
+import { serviceAreaKeywords } from '@/app/lib/seo-content';
 import Hero from '@/app/components/sections/Hero';
 import Features from '@/app/components/sections/Features';
 import LongTailKeywords from '@/app/components/sections/LongTailKeywords';
@@ -18,20 +19,25 @@ interface ServiceLocationPageProps {
 }
 
 export async function generateMetadata({ params }: ServiceLocationPageProps): Promise<Metadata> {
-  const service = services.find(s => s.slug.es === params.service);
-  const location = locations.find(l => l.slug.es === params.location);
-  if (!service || !location) return {};
+  const serviceMatch = findServiceBySlug(params.service, 'es');
+  const locationMatch = findLocationBySlug(params.location, 'es');
+  if (!serviceMatch || !locationMatch) return {};
 
-  const metadata = generateSeoMetadata('es');
+  const { service, canonicalSlug: serviceSlug } = serviceMatch;
+  const { location, canonicalSlug: locationSlug } = locationMatch;
+
+  const metadata = generateServiceLocationMetadata('es', service.name.es, location.name, serviceSlug, locationSlug);
+  const keywordSource = serviceAreaKeywords[location.slug.en as keyof typeof serviceAreaKeywords] || [];
+  const keywords = new Set([...(metadata.keywords || []), ...keywordSource, service.name.es, location.name]);
+
   return {
     ...metadata,
-    title: `${service.name.es} en ${location.name} | JC Glass & Mirrors`,
-    description: `Servicios profesionales de ${service.name.es.toLowerCase()} en ${location.name}. ${service.description.es}`,
+    keywords: Array.from(keywords),
     alternates: {
-      canonical: `/es/servicios/${params.service}/en/${params.location}`,
+      canonical: `https://topglassrepairs.com/es/servicios/${serviceSlug}/en/${locationSlug}`,
       languages: {
         'en-US': `/en/services/${service.slug.en}/in/${location.slug.en}`,
-        'es-ES': `/es/servicios/${service.slug.es}/en/${location.slug.es}`,
+        'es-ES': `/es/servicios/${serviceSlug}/en/${locationSlug}`,
       },
     },
   };
@@ -51,9 +57,16 @@ export async function generateStaticParams() {
 }
 
 export default function ServiceLocationPage({ params }: ServiceLocationPageProps) {
-  const service = services.find(s => s.slug.es === params.service);
-  const location = locations.find(l => l.slug.es === params.location);
-  if (!service || !location) notFound();
+  const serviceMatch = findServiceBySlug(params.service, 'es');
+  const locationMatch = findLocationBySlug(params.location, 'es');
+  if (!serviceMatch || !locationMatch) notFound();
+
+  if (serviceMatch.shouldRedirect || locationMatch.shouldRedirect) {
+    redirect(`/es/servicios/${serviceMatch.canonicalSlug}/en/${locationMatch.canonicalSlug}`);
+  }
+
+  const { service } = serviceMatch;
+  const { location } = locationMatch;
 
   const structuredData = generateStructuredData('es', 'Service', {
     name: `${service.name.es} en ${location.name}`,
@@ -84,7 +97,11 @@ export default function ServiceLocationPage({ params }: ServiceLocationPageProps
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4 py-4">
         <Breadcrumbs
-          items={generateServiceLocationBreadcrumbs('es', service.name.es, location.name)}
+          items={generateServiceLocationBreadcrumbs(
+            'es',
+            { name: service.name.es, slug: service.slug.es },
+            { name: location.name, slug: location.slug.es }
+          )}
           lang="es"
         />
       </div>

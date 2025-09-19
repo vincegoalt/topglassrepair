@@ -108,7 +108,7 @@ export default function Hero({
         <div className={contentWidthClasses}>
           {/* Animated title */}
           <h1 className="text-white mb-4 md:mb-6 animate-fade-in">
-            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
+            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight heading-solid">
               {title}
             </span>
           </h1>

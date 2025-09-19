@@ -1,4 +1,5 @@
-import { Location } from '../types';
+import { Language, Location } from '../types';
+import { normalizeSlug } from '../utils/slug';
 
 export const locations: Location[] = [
   {
@@ -304,6 +305,15 @@ export const locations: Location[] = [
     slug: {
       en: 'hidden-hills',
       es: 'hidden-hills'
+    },
+    state: 'CA'
+  },
+  {
+    id: 'hollywood',
+    name: 'Hollywood',
+    slug: {
+      en: 'hollywood',
+      es: 'hollywood'
     },
     state: 'CA'
   },
@@ -805,3 +815,36 @@ export const generateServiceLocationSlugs = (
     es: `${serviceSlug.es}-en-${locationSlug.es}`
   };
 };
+
+export interface LocationMatch {
+  location: Location;
+  canonicalSlug: string;
+  shouldRedirect: boolean;
+}
+
+function matchesLocationSlug(location: Location, slug: string): boolean {
+  const candidates = new Set<string>();
+  candidates.add(location.slug.en);
+  candidates.add(location.slug.es);
+
+  location.aliases?.forEach(alias => candidates.add(alias));
+
+  return Array.from(candidates).some(candidate => normalizeSlug(candidate) === slug);
+}
+
+export function findLocationBySlug(slug: string, lang: Language): LocationMatch | null {
+  const normalizedSlug = normalizeSlug(slug);
+  const match = locations.find(location => matchesLocationSlug(location, normalizedSlug));
+
+  if (!match) {
+    return null;
+  }
+
+  const canonicalSlug = match.slug[lang];
+
+  return {
+    location: match,
+    canonicalSlug,
+    shouldRedirect: normalizedSlug !== normalizeSlug(canonicalSlug)
+  };
+}

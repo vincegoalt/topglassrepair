@@ -37,8 +37,8 @@ export function generateLocationBreadcrumbs(lang: Language, locationName: string
 
 export function generateServiceLocationBreadcrumbs(
   lang: Language,
-  serviceName: string,
-  locationName: string
+  service: { name: string; slug: string },
+  location: { name: string; slug: string }
 ): BreadcrumbItem[] {
   const prefix = lang === 'en' ? '/en' : '/es';
   const servicesPath = lang === 'en' ? '/services' : '/servicios';
@@ -48,8 +48,8 @@ export function generateServiceLocationBreadcrumbs(
   return [
     { label: lang === 'en' ? 'Home' : 'Inicio', href: prefix },
     { label: servicesLabel, href: `${prefix}${servicesPath}` },
-    { label: serviceName, href: `${prefix}${servicesPath}/${serviceName}` },
-    { label: locationName, href: `${prefix}${servicesPath}/${serviceName}/${preposition}/${locationName}` }
+    { label: service.name, href: `${prefix}${servicesPath}/${service.slug}` },
+    { label: location.name, href: `${prefix}${servicesPath}/${service.slug}/${preposition}/${location.slug}` }
   ];
 }
 

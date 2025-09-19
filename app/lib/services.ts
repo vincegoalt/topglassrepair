@@ -1,4 +1,5 @@
-import { Service } from '../types';
+import { Language, Service } from '../types';
+import { normalizeSlug } from '../utils/slug';
 
 export const services: Service[] = [
   {
@@ -135,6 +136,9 @@ export const services: Service[] = [
       en: 'window-glass-repair',
       es: 'reparacion-vidrios-ventanas'
     },
+    aliases: {
+      en: ['glass-repair']
+    },
     longTailKeywords: {
       en: [
         {
@@ -259,6 +263,10 @@ export const services: Service[] = [
       en: 'custom-mirrors',
       es: 'espejos-personalizados'
     },
+    aliases: {
+      en: ['mirror-installation'],
+      es: ['instalacion-espejos']
+    },
     longTailKeywords: {
       en: [
         {
@@ -374,6 +382,134 @@ export const services: Service[] = [
     }
   },
   {
+    id: 'glass-table-tops',
+    name: {
+      en: 'Glass Table Tops',
+      es: 'Cubiertas de Vidrio para Mesas'
+    },
+    slug: {
+      en: 'glass-table-tops',
+      es: 'cubiertas-vidrio-mesas'
+    },
+    aliases: {
+      en: ['glass-tabletop-replacement', 'glass-table-top'],
+      es: ['cubiertas-cristal-mesas']
+    },
+    longTailKeywords: {
+      en: [
+        {
+          title: "Custom Glass Table Top Replacement in [location]",
+          description: "Protect your furniture with a custom-cut glass table top sized perfectly for your space. Call today for a free quote."
+        },
+        {
+          title: "Tempered Glass Coffee Table Tops in [location]",
+          description: "Upgrade your coffee table with durable tempered glass that resists scratches and heat. Schedule your installation now."
+        },
+        {
+          title: "Round Glass Table Tops Cut to Size in [location]",
+          description: "Get a flawless round glass top for dining tables, patio sets, and accent furniture. Fast turnaround available."
+        },
+        {
+          title: "Glass Desk and Conference Table Tops in [location]",
+          description: "Modernize your workspace with custom glass tops for desks and conference tables. Professional installation included."
+        },
+        {
+          title: "Protective Glass Covers for Wood Tables in [location]",
+          description: "Preserve valuable wood tables with a clear, beveled protective glass cover. Free in-home measurements."
+        },
+        {
+          title: "Glass Table Tops with Beveled Edges in [location]",
+          description: "Add elegance with beveled-edge glass table tops available in multiple thicknesses and finishes. Contact us for options."
+        }
+      ],
+      es: [
+        {
+          title: "Reemplazo de Cubiertas de Vidrio para Mesas a Medida en [location]",
+          description: "Proteja sus muebles con cubiertas de vidrio cortadas a medida para su espacio. Llame hoy para una cotización gratuita."
+        },
+        {
+          title: "Cubiertas de Vidrio Templado para Mesas de Centro en [location]",
+          description: "Actualice su mesa de centro con vidrio templado duradero que resiste rayones y calor. Programe su instalación ahora."
+        },
+        {
+          title: "Cubiertas de Vidrio Redondas a Medida en [location]",
+          description: "Obtenga una cubierta de vidrio redonda impecable para comedores, terrazas y muebles decorativos. Entrega rápida disponible."
+        },
+        {
+          title: "Cubiertas de Vidrio para Escritorios y Mesas de Juntas en [location]",
+          description: "Modernice su espacio de trabajo con cubiertas de vidrio personalizadas para escritorios y salas de juntas. Instalación profesional incluida."
+        },
+        {
+          title: "Cubiertas Protectores de Vidrio para Mesas de Madera en [location]",
+          description: "Preserve sus valiosas mesas de madera con una cubierta protectora de vidrio claro y biselado. Medidas en casa sin costo."
+        },
+        {
+          title: "Cubiertas de Vidrio con Bordes Biselados en [location]",
+          description: "Agregue elegancia con cubiertas de vidrio biseladas disponibles en varios grosores y acabados. Contáctenos para opciones."
+        }
+      ]
+    },
+    description: {
+      en: 'Custom glass table tops cut to any shape with polished or beveled edges. Ideal for dining tables, coffee tables, desks, and furniture protection.',
+      es: 'Cubiertas de vidrio personalizadas cortadas a cualquier forma con bordes pulidos o biselados. Ideales para comedores, mesas de centro, escritorios y protección de muebles.'
+    },
+    imageUrl: 'https://portageglassandmirror.com/wp-content/uploads/2025/02/glass-table-top.jpg',
+    faqs: {
+      en: [
+        {
+          question: "What glass thickness do you recommend for table tops in [location]?",
+          answer: "For most tables in [location], we recommend 3/8\" tempered glass. Larger dining and conference tables may benefit from 1/2\" glass for extra stability."
+        },
+        {
+          question: "Can you cut glass table tops to match unique shapes?",
+          answer: "Yes, we custom-cut glass to match templates, curves, and unique furniture shapes. Our team provides precision measurements on-site."
+        },
+        {
+          question: "Do you offer protective felt or bumper spacers for table tops?",
+          answer: "Absolutely. We include clear bumpers or felt spacers to prevent sliding and protect the underlying surface."
+        },
+        {
+          question: "How do I clean and maintain a glass table top?",
+          answer: "Use a non-abrasive glass cleaner and microfiber cloth. Avoid harsh chemicals and place coasters under hot items to prevent thermal stress."
+        }
+      ],
+      es: [
+        {
+          question: "¿Qué grosor de vidrio recomiendan para mesas en [location]?",
+          answer: "Para la mayoría de las mesas en [location], recomendamos vidrio templado de 3/8\". Las mesas de comedor y juntas más grandes pueden beneficiarse de vidrio de 1/2\" para mayor estabilidad."
+        },
+        {
+          question: "¿Pueden cortar cubiertas de vidrio para formas únicas?",
+          answer: "Sí, cortamos vidrio a medida siguiendo plantillas, curvas y formas únicas de muebles. Nuestro equipo realiza mediciones precisas en el lugar."
+        },
+        {
+          question: "¿Ofrecen topes protectores o espaciadores para las cubiertas?",
+          answer: "Claro. Incluimos topes transparentes o espaciadores de fieltro para evitar deslizamientos y proteger la superficie inferior."
+        },
+        {
+          question: "¿Cómo debo limpiar y mantener una cubierta de vidrio?",
+          answer: "Use un limpiador de vidrio no abrasivo y un paño de microfibra. Evite químicos agresivos y coloque posavasos bajo objetos calientes para prevenir estrés térmico."
+        }
+      ]
+    },
+    features: {
+      en: [
+        'Tempered safety glass',
+        'Custom shapes & sizes',
+        'Edge polish & bevel options',
+        'Furniture protection pads',
+        'Residential & commercial'
+      ],
+      es: [
+        'Vidrio templado de seguridad',
+        'Formas y tamaños personalizados',
+        'Opciones de borde pulido y biselado',
+        'Protectores para muebles incluidos',
+        'Residencial y comercial'
+      ]
+    }
+  },
+  {
     id: 'emergency-glass',
     name: {
       en: 'Emergency Glass Replacement',
@@ -382,6 +518,10 @@ export const services: Service[] = [
     slug: {
       en: 'emergency-glass-replacement',
       es: 'reemplazo-vidrios-emergencia'
+    },
+    aliases: {
+      en: ['emergency-glass-repair'],
+      es: ['reparacion-vidrios-emergencia']
     },
     longTailKeywords: {
       en: [
@@ -506,6 +646,10 @@ export const services: Service[] = [
     slug: {
       en: 'shower-doors',
       es: 'puertas-ducha'
+    },
+    aliases: {
+      en: ['shower-door-installation'],
+      es: ['instalacion-puertas-ducha']
     },
     description: {
       en: 'Custom shower door installation and repair. From frameless to semi-frameless designs, we offer beautiful solutions for your bathroom.',
@@ -914,3 +1058,46 @@ export const services: Service[] = [
     }
   }
 ];
+
+export interface ServiceMatch {
+  service: Service;
+  canonicalSlug: string;
+  shouldRedirect: boolean;
+}
+
+function matchesServiceSlug(service: Service, lang: Language, slug: string): boolean {
+  const canonicalSlug = normalizeSlug(service.slug[lang]);
+  if (canonicalSlug === slug) {
+    return true;
+  }
+
+  const aliases = service.aliases?.[lang];
+  return Boolean(aliases && aliases.some(alias => normalizeSlug(alias) === slug));
+}
+
+export function findServiceBySlug(slug: string, lang: Language): ServiceMatch | null {
+  const normalizedSlug = normalizeSlug(slug);
+  const languageMatch = services.find(service => matchesServiceSlug(service, lang, normalizedSlug));
+
+  if (languageMatch) {
+    const canonicalSlug = languageMatch.slug[lang];
+    return {
+      service: languageMatch,
+      canonicalSlug,
+      shouldRedirect: normalizedSlug !== normalizeSlug(canonicalSlug)
+    };
+  }
+
+  const fallbackLang: Language = lang === 'en' ? 'es' : 'en';
+  const fallbackMatch = services.find(service => matchesServiceSlug(service, fallbackLang, normalizedSlug));
+
+  if (fallbackMatch) {
+    return {
+      service: fallbackMatch,
+      canonicalSlug: fallbackMatch.slug[lang],
+      shouldRedirect: true
+    };
+  }
+
+  return null;
+}

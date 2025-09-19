@@ -25,6 +25,11 @@ export default function Footer({ lang }: FooterProps) {
     contact: lang === 'en' ? 'Contact' : 'Contacto',
     hours: lang === 'en' ? 'Hours' : 'Horario',
     rights: lang === 'en' ? 'All rights reserved' : 'Todos los derechos reservados',
+    office: lang === 'en' ? 'Office' : 'Oficina',
+    emergency: lang === 'en' ? 'Emergency' : 'Emergencias',
+    email: lang === 'en' ? 'Email' : 'Correo electrónico',
+    viewAllServices: lang === 'en' ? 'View all services' : 'Ver todos los servicios',
+    viewAllLocations: lang === 'en' ? 'View all service areas' : 'Ver todas las áreas de servicio'
   };
 
   // Get major cities for the footer
@@ -45,12 +50,15 @@ export default function Footer({ lang }: FooterProps) {
             <address className="not-italic">
               <p className="mb-2">{CONTACT_INFO.address}</p>
               <p className="mb-2">
-                Office: <a href={`tel:${CONTACT_INFO.office}`} className="text-primary hover:text-primary/80 font-medium transition-colors">{CONTACT_INFO.office}</a>
+                {translations.office}:{' '}
+                <a href={`tel:${CONTACT_INFO.office}`} className="text-primary hover:text-primary/80 font-medium transition-colors">{CONTACT_INFO.office}</a>
               </p>
               <p className="mb-2">
-                Emergency: <a href={`tel:${CONTACT_INFO.emergency}`} className="text-accent hover:text-accent/80 font-medium transition-colors">{CONTACT_INFO.emergency}</a>
+                {translations.emergency}:{' '}
+                <a href={`tel:${CONTACT_INFO.emergency}`} className="text-accent hover:text-accent/80 font-medium transition-colors">{CONTACT_INFO.emergency}</a>
               </p>
               <p>
+                {translations.email}:{' '}
                 <a href={`mailto:${CONTACT_INFO.email}`} className="text-primary hover:text-primary/80 transition-colors">{CONTACT_INFO.email}</a>
               </p>
             </address>

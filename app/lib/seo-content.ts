@@ -77,6 +77,22 @@ export const locationContent: LocationContent = {
     ],
     whyChoose: 'Our team includes specialists in historic preservation who understand Pasadena\'s architectural heritage. We work closely with homeowners and preservation committees to ensure all glass work meets both modern standards and historic guidelines.'
   },
+  'hollywood': {
+    hero: {
+      title: 'Glass Repair & Installation in Hollywood, CA',
+      subtitle: 'Studio-Ready Glass • Luxury Residences • Same-Day Service'
+    },
+    about: 'From hillside homes to production studios, Hollywood properties demand precise, discreet glass work. Top Glass Repairs delivers crystal-clear installs for filming locations, entertainment venues, and high-end residences across Hollywood.',
+    services: [
+      'Soundstage and production glass solutions',
+      'Luxury home window replacement',
+      'Custom mirror walls and gym installations',
+      'Glass railing and balcony systems',
+      'Security glass for storefronts and venues',
+      '24/7 emergency board-up in Hollywood Hills'
+    ],
+    whyChoose: 'Our Hollywood glass team understands film schedules, celebrity privacy, and the unique architecture of the hills. We coordinate around your shoot, maintain confidentiality, and deliver premium finishes worthy of a red-carpet property.'
+  },
   'long-beach': {
     hero: {
       title: 'Reliable Glass Repair in Long Beach, CA',
@@ -159,6 +175,14 @@ export const serviceAreaKeywords = {
     'Glendale window replacement',
     'glass contractor Glendale',
     'storefront glass Glendale'
+  ],
+  'hollywood': [
+    'glass repair Hollywood',
+    'Hollywood window replacement',
+    'studio glass Hollywood',
+    'emergency glass Hollywood CA',
+    'custom mirrors Hollywood',
+    'storefront glass Hollywood'
   ]
 };
 

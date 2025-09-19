@@ -43,6 +43,14 @@
     background-clip: text;
   }
 
+  .heading-solid {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: currentColor !important;
+    color: inherit !important;
+  }
+
   h1 {
     @apply text-5xl md:text-6xl lg:text-7xl;
     line-height: 1.1;

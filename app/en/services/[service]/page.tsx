@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import Image from 'next/image';
-import { generateMetadata as generateSeoMetadata, generateStructuredData } from '@/app/utils/seo';
-import { services } from '@/app/lib/services';
+import { generateStructuredData } from '@/app/utils/seo';
+import { findServiceBySlug, services } from '@/app/lib/services';
 import { locations } from '@/app/lib/locations';
 import Hero from '@/app/components/sections/Hero';
 import Features from '@/app/components/sections/Features';
@@ -20,18 +20,32 @@ interface ServicePageProps {
 }
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
-  const service = services.find(s => s.slug.en === params.service);
-  if (!service) return {};
+  const match = findServiceBySlug(params.service, 'en');
+  if (!match) return {};
 
-  const metadata = generateSeoMetadata('en');
+  const { service, canonicalSlug } = match;
+  const featureSnippet = service.features?.en?.slice(0, 3).join(', ');
+  const descriptionParts = [
+    `Top Glass Repairs provides ${service.name.en.toLowerCase()} across Los Angeles County.`,
+    featureSnippet ? `Popular options include ${featureSnippet}.` : undefined,
+    service.description.en
+  ].filter(Boolean) as string[];
+
+  const keywordSet = new Set<string>([
+    service.name.en,
+    service.slug.en.replace(/-/g, ' '),
+    ...(service.features?.en ?? []),
+    ...(service.longTailKeywords?.en?.slice(0, 3).map(keyword => keyword.title.toLowerCase()) ?? [])
+  ]);
+
   return {
-    ...metadata,
-    title: `${service.name.en} in Los Angeles | JC Glass & Mirrors`,
-    description: `Professional ${service.name.en.toLowerCase()} services in Los Angeles. ${service.description.en}`,
+    title: `${service.name.en} Services in Los Angeles | Top Glass Repairs`,
+    description: descriptionParts.join(' '),
+    keywords: Array.from(keywordSet),
     alternates: {
-      canonical: `/en/services/${params.service}`,
+      canonical: `https://topglassrepairs.com/en/services/${canonicalSlug}`,
       languages: {
-        'en-US': `/en/services/${params.service}`,
+        'en-US': `/en/services/${canonicalSlug}`,
         'es-ES': `/es/servicios/${service.slug.es}`,
       },
     },
@@ -45,8 +59,14 @@ export async function generateStaticParams() {
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  const service = services.find(s => s.slug.en === params.service);
-  if (!service) notFound();
+  const match = findServiceBySlug(params.service, 'en');
+  if (!match) notFound();
+
+  if (match.shouldRedirect) {
+    redirect(`/en/services/${match.canonicalSlug}`);
+  }
+
+  const { service } = match;
 
   const structuredData = generateStructuredData('en', 'Service', {
     name: service.name.en,
@@ -139,7 +159,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                 <div className="w-16 h-16 p-4 glass-dark rounded-2xl backdrop-blur-lg">
                   {getServiceIcon(service.slug.en)}
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold heading-solid text-white">
                   {service.name.en}
                 </h1>
               </div>

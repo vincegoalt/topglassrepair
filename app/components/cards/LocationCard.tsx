@@ -19,9 +19,12 @@ export default function LocationCard({
   variant = 'default'
 }: LocationCardProps) {
   // Generate the appropriate href based on whether a service is provided
+  const locationSlug = location.slug[lang];
   const href = service
-    ? `/${lang}/${lang === 'en' ? 'services' : 'servicios'}/${service}/${lang === 'en' ? 'in' : 'en'}/${location.slug[lang]}`
-    : `/${lang}/${lang === 'en' ? 'locations' : 'ubicaciones'}/${location.slug[lang]}`;
+    ? `/${lang}/${lang === 'en' ? 'services' : 'servicios'}/${service}/${lang === 'en' ? 'in' : 'en'}/${locationSlug}`
+    : lang === 'en'
+      ? `/locations/${location.slug.en}`
+      : `/es/servicios/reparacion-vidrios-ventanas/en/${location.slug.es}`;
 
   // Get available services for this location
   const availableServices = services.slice(0, 3); // For demo, showing first 3 services

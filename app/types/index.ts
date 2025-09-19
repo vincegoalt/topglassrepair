@@ -20,6 +20,10 @@ export interface Service {
     en: string;
     es: string;
   };
+  aliases?: {
+    en?: string[];
+    es?: string[];
+  };
   description: {
     en: string;
     es: string;
@@ -47,6 +51,7 @@ export interface Location {
     en: string;
     es: string;
   };
+  aliases?: string[];
   coordinates?: {
     lat: number;
     lng: number;
