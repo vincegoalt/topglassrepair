@@ -14,8 +14,8 @@ export default function Footer({ lang }: FooterProps) {
   const defaultServiceSlug = lang === 'en' ? defaultService.slug.en : defaultService.slug.es;
 
   // Get paths based on language
-  const servicesPath = lang === 'en' ? '/services' : '/servicios';
-  const contactPath = lang === 'en' ? '/contact' : '/contacto';
+  const servicesPath = lang === 'en' ? 'services' : 'servicios';
+  const contactPath = lang === 'en' ? 'contact' : 'contacto';
   const locationInPath = lang === 'en' ? '/in/' : '/en/';
 
   // Get translations
@@ -71,7 +71,7 @@ export default function Footer({ lang }: FooterProps) {
               {services.map((service) => (
                 <li key={service.id}>
                   <Link
-                    href={`/${lang}${servicesPath}/${lang === 'en' ? service.slug.en : service.slug.es}`}
+                    href={`/${lang}/${servicesPath}/${lang === 'en' ? service.slug.en : service.slug.es}`}
                     className="text-gray-600 hover:text-primary transition-colors block py-1"
                   >
                     {lang === 'en' ? service.name.en : service.name.es}
@@ -88,7 +88,7 @@ export default function Footer({ lang }: FooterProps) {
               {majorCities.map((location) => (
                 <div key={location.id}>
                   <Link
-                    href={`/${lang}${servicesPath}/${defaultServiceSlug}${locationInPath}${lang === 'en' ? location.slug.en : location.slug.es}`}
+                    href={`/${lang}/${servicesPath}/${defaultServiceSlug}${locationInPath}${lang === 'en' ? location.slug.en : location.slug.es}`}
                     className="text-gray-600 hover:text-primary transition-colors block py-1"
                   >
                     {location.name}
