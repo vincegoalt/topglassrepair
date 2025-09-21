@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { Language } from '@/app/types';
 import { CONTACT_INFO } from '@/app/lib/config';
 import { NAV_SERVICES, NAV_LOCATIONS, PRIMARY_SERVICE_SLUG } from '@/app/data/navigation';
+import PhoneLink from '@/app/components/PhoneLink';
 
 interface HeaderProps {
   lang: Language;
@@ -238,12 +239,13 @@ export default function Header({ lang }: HeaderProps) {
             >
               {translations.contact}
             </Link>
-            <Link
-              href={`tel:${CONTACT_INFO.office}`}
+            <PhoneLink
+              phoneNumber={CONTACT_INFO.office}
               className="btn btn-primary text-sm xl:text-base"
+              eventLabel="header_desktop_cta"
             >
               {translations.estimate}
-            </Link>
+            </PhoneLink>
           </div>
 
           {/* Mobile Menu Button */}
@@ -287,12 +289,14 @@ export default function Header({ lang }: HeaderProps) {
             {/* Mobile Emergency Info */}
             <div className="pb-4 border-b">
               <div className="text-sm text-gray-600 mb-2">🚨 24/7 Emergency</div>
-              <a
-                href={`tel:${CONTACT_INFO.office}`}
+              <PhoneLink
+                phoneNumber={CONTACT_INFO.office}
                 className="text-primary font-semibold text-lg"
+                eventLabel="header_mobile_emergency"
+                displayNumber={CONTACT_INFO.office}
               >
                 {CONTACT_INFO.office}
-              </a>
+              </PhoneLink>
             </div>
 
             {/* Mobile Navigation Links */}

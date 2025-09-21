@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import { Inter } from 'next/font/google';
 import { Language } from './types';
 import { WebVitals } from './components/WebVitals';
+import GoogleAnalytics from './components/GoogleAnalytics';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -33,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang={lang}>
       <body className={inter.className}>
+        <GoogleAnalytics />
         <WebVitals />
         {children}
       </body>
