@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { generateMetadata as generateSeoMetadata, generateStructuredData } from '@/app/utils/seo';
 import { CONTACT_INFO } from '@/app/lib/config';
 import ContactForm from '@/app/components/forms/ContactForm';
+import PhoneLink from '@/app/components/PhoneLink';
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = generateSeoMetadata('es');
@@ -45,21 +46,23 @@ export default function ContactPage() {
                   </p>
                   <p className="flex items-center">
                     <span className="text-primary mr-2">📞</span>
-                    <a 
-                      href={`tel:${CONTACT_INFO.office}`}
+                    <PhoneLink
+                      phoneNumber={CONTACT_INFO.office}
                       className="hover:text-primary"
+                      eventLabel="contact_page"
                     >
                       Oficina: {CONTACT_INFO.office}
-                    </a>
+                    </PhoneLink>
                   </p>
                   <p className="flex items-center">
                     <span className="text-accent mr-2">🚨</span>
-                    <a 
-                      href={`tel:${CONTACT_INFO.emergency}`}
+                    <PhoneLink
+                      phoneNumber={CONTACT_INFO.emergency}
                       className="text-accent hover:text-accent/90"
+                      eventLabel="contact_page"
                     >
                       Emergencia 24/7: {CONTACT_INFO.emergency}
-                    </a>
+                    </PhoneLink>
                   </p>
                 </div>
               </div>

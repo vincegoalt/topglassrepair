@@ -73,9 +73,9 @@ export default function Header({ lang }: HeaderProps) {
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center">
             <span className="mr-4">🚨 {translations.emergencyBanner}</span>
-            <a href={`tel:${CONTACT_INFO.office}`} className="hover:text-accent">
+            <PhoneLink phoneNumber={CONTACT_INFO.office} className="hover:text-accent" eventLabel="header_desktop_emergency">
               {CONTACT_INFO.office}
-            </a>
+            </PhoneLink>
           </div>
           <div>
             <Link
@@ -400,13 +400,13 @@ export default function Header({ lang }: HeaderProps) {
             </Link>
             
             {/* Mobile CTA Button */}
-            <Link
-              href={`tel:${CONTACT_INFO.office}`}
+            <PhoneLink
+              phoneNumber={CONTACT_INFO.office}
               className="btn btn-primary w-full text-center"
-              onClick={() => setIsMenuOpen(false)}
+              eventLabel="header_mobile_cta"
             >
               {lang === 'en' ? 'Get Free Estimate' : 'Obtener Presupuesto'}
-            </Link>
+            </PhoneLink>
 
             {/* Language Switcher */}
             <div className="pt-4 border-t">

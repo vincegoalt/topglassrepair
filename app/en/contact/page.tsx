@@ -3,6 +3,7 @@ import { generateMetadata as generateSeoMetadata, generateStructuredData } from 
 import { CONTACT_INFO } from '@/app/lib/config';
 import ContactForm from '@/app/components/forms/ContactForm';
 import Reviews from '@/app/components/Reviews';
+import PhoneLink from '@/app/components/PhoneLink';
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = generateSeoMetadata('en');
@@ -82,20 +83,22 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold text-lg mb-1">Phone</h3>
                       <p className="mb-2">
-                        <a 
-                          href={`tel:${CONTACT_INFO.office}`}
+                        <PhoneLink
+                          phoneNumber={CONTACT_INFO.office}
                           className="text-primary hover:text-primary/80 transition-colors"
+                          eventLabel="contact_page"
                         >
                           Office: {CONTACT_INFO.office}
-                        </a>
+                        </PhoneLink>
                       </p>
                       <p>
-                        <a 
-                          href={`tel:${CONTACT_INFO.emergency}`}
+                        <PhoneLink
+                          phoneNumber={CONTACT_INFO.emergency}
                           className="text-accent font-semibold hover:text-accent/80 transition-colors"
+                          eventLabel="contact_page"
                         >
                           24/7 Emergency: {CONTACT_INFO.emergency}
-                        </a>
+                        </PhoneLink>
                       </p>
                     </div>
                   </div>
@@ -180,9 +183,10 @@ export default function ContactPage() {
 
           {/* Quick Actions */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <a 
-              href={`tel:${CONTACT_INFO.emergency}`}
+            <PhoneLink
+              phoneNumber={CONTACT_INFO.emergency}
               className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-accent to-orange-500 p-8 text-white text-center shadow-xl transform transition-all hover:scale-105"
+              eventLabel="contact_page"
             >
               <div className="relative z-10">
                 <svg className="w-12 h-12 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
@@ -192,7 +196,7 @@ export default function ContactPage() {
                 <p className="text-white/90">Available 24/7</p>
               </div>
               <div className="absolute inset-0 bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
-            </a>
+            </PhoneLink>
 
             <a 
               href="/en/services"
@@ -208,9 +212,10 @@ export default function ContactPage() {
               <div className="absolute inset-0 bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
             </a>
 
-            <a 
-              href={`tel:${CONTACT_INFO.office}`}
+            <PhoneLink
+              phoneNumber={CONTACT_INFO.office}
               className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-gray-700 to-gray-900 p-8 text-white text-center shadow-xl transform transition-all hover:scale-105"
+              eventLabel="contact_page"
             >
               <div className="relative z-10">
                 <svg className="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -220,7 +225,7 @@ export default function ContactPage() {
                 <p className="text-white/90">Book appointment</p>
               </div>
               <div className="absolute inset-0 bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
-            </a>
+            </PhoneLink>
           </div>
         </div>
       </div>

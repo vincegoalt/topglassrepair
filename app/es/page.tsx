@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { services } from '../lib/services';
 import { generateMetadata as generateSeoMetadata, generateStructuredData } from '../utils/seo';
 import { getTranslation } from '../utils/languageClient';
+import PhoneLink from '../components/PhoneLink';
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = generateSeoMetadata('es');
@@ -51,9 +52,9 @@ export default function HomePage() {
               Servicios profesionales de reparación, reemplazo y soluciones personalizadas de espejos. Disponible 24/7 para servicios de emergencia.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a href="tel:(562) 436-2616" className="btn btn-accent">
+              <PhoneLink phoneNumber="(562) 436-2616" className="btn btn-accent" eventLabel="main_page_cta">
                 {getTranslation('callToAction', 'es')}
-              </a>
+              </PhoneLink>
               <Link href="/es/servicios" className="btn btn-outline text-white border-white hover:bg-white hover:text-primary">
                 {getTranslation('services', 'es')}
               </Link>
@@ -137,9 +138,9 @@ export default function HomePage() {
             Contáctenos hoy para un presupuesto gratuito. Nuestro equipo de expertos está listo para ayudar con todas sus necesidades de vidrios y espejos.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="tel:(562) 436-2616" className="btn btn-accent">
+            <PhoneLink phoneNumber="(562) 436-2616" className="btn btn-accent" eventLabel="main_page_cta">
               Llame Ahora: (562) 436-2616
-            </a>
+            </PhoneLink>
             <Link href="/es/contacto" className="btn btn-outline text-white border-white hover:bg-white hover:text-primary">
               Contáctenos
             </Link>

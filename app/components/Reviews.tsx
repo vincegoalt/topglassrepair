@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
+import PhoneLink from '@/app/components/PhoneLink';
 
 interface Review {
   id: string;
@@ -355,9 +356,9 @@ export default function Reviews({
         <div className="mt-12 text-center">
           <p className="text-lg mb-4">Ready to experience our 5-star service?</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="tel:(562) 436-2616" className="btn btn-primary">
+            <PhoneLink phoneNumber="(562) 436-2616" className="btn btn-primary" eventLabel="reviews_cta">
               Call Now: (562) 436-2616
-            </a>
+            </PhoneLink>
             <a
               href="https://www.google.com/search?q=top+glass+repairs+los+angeles"
               target="_blank"

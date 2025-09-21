@@ -12,6 +12,7 @@ import {
 } from '@/app/utils/seo';
 import CallToAction from '@/app/components/sections/CallToAction';
 import LocationGrid from '@/app/components/grids/LocationGrid';
+import PhoneLink from '@/app/components/PhoneLink';
 
 const defaultHighlights = [
   'Residential & commercial glass replacement',
@@ -113,9 +114,9 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
             <h1 className="text-4xl md:text-5xl font-bold mb-4 heading-solid text-white">{heroTitle}</h1>
             <p className="text-lg md:text-xl text-white/90 mb-6">{heroSubtitle}</p>
             <div className="flex flex-wrap gap-4">
-              <a href="tel:(562) 436-2616" className="btn btn-accent">
+              <PhoneLink phoneNumber="(562) 436-2616" className="btn btn-accent" eventLabel="location_page_cta">
                 Call (562) 436-2616
-              </a>
+              </PhoneLink>
               <Link href="/en/contact" className="btn btn-glass text-white">
                 Book Onsite Estimate
               </Link>

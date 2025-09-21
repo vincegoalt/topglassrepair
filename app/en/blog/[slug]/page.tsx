@@ -7,6 +7,7 @@ import {
   generateLocalBusinessSchema,
   generateBlogPostSchema
 } from '../../../utils/seo';
+import PhoneLink from '../../../components/PhoneLink';
 
 // Sample blog post data - in production, this would come from a CMS
 const blogPosts = {
@@ -334,9 +335,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   <div className="bg-primary text-white rounded-lg p-6 mb-8 sticky top-6">
                     <h3 className="text-xl font-bold mb-4">Need Glass Repair Services?</h3>
                     <p className="mb-6">Get professional help from Los Angeles&apos;s trusted glass experts.</p>
-                    <a href="tel:(562) 436-2616" className="btn btn-accent w-full mb-3">
+                    <PhoneLink phoneNumber="(562) 436-2616" className="btn btn-accent w-full mb-3" eventLabel="blog_page_cta">
                       Call (562) 436-2616
-                    </a>
+                    </PhoneLink>
                     <Link href="/en/contact" className="btn btn-outline text-white border-white hover:bg-white hover:text-primary w-full">
                       Get Free Quote
                     </Link>

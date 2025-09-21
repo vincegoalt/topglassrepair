@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Language } from '@/app/types';
 import { getTranslation } from '@/app/utils/languageClient';
 import { CONTACT_INFO } from '@/app/lib/config';
+import PhoneLink from '@/app/components/PhoneLink';
 
 interface CallToActionProps {
   title?: string;
@@ -65,12 +66,13 @@ export default function CallToAction({
               <div className="flex flex-wrap gap-4">
                 {/* Primary Action */}
                 {primaryAction?.isPhoneNumber ? (
-                  <a
-                    href={primaryAction?.href || '#'}
+                  <PhoneLink
+                    phoneNumber={primaryAction?.href?.replace('tel:', '') || '(562) 436-2616'}
                     className="btn btn-accent"
+                    eventLabel="main_page_cta"
                   >
                     {primaryAction?.label || 'Contact Us'}
-                  </a>
+                  </PhoneLink>
                 ) : (
                   <Link
                     href={primaryAction?.href || '#'}
@@ -118,12 +120,13 @@ export default function CallToAction({
             </p>
             {/* Primary Action Only */}
             {primaryAction.isPhoneNumber ? (
-              <a
-                href={primaryAction.href}
+              <PhoneLink
+                phoneNumber={primaryAction.href.replace('tel:', '')}
                 className="btn btn-accent"
+                eventLabel="main_page_cta"
               >
                 {primaryAction.label}
-              </a>
+              </PhoneLink>
             ) : (
               <Link
                 href={primaryAction.href}
@@ -151,33 +154,36 @@ export default function CallToAction({
                   {getTranslation('contact', lang)}:
                 </p>
                 <p>
-                  <a
-                    href={`tel:${CONTACT_INFO.office}`}
+                  <PhoneLink
+                    phoneNumber={CONTACT_INFO.office}
                     className="text-white hover:text-accent transition-colors"
+                    eventLabel="main_page_cta"
                   >
                     {CONTACT_INFO.office}
-                  </a>
+                  </PhoneLink>
                 </p>
                 <p className="text-sm mt-1 text-white">
                   {getTranslation('emergency', lang)}:{' '}
-                  <a
-                    href={`tel:${CONTACT_INFO.emergency}`}
+                  <PhoneLink
+                    phoneNumber={CONTACT_INFO.emergency}
                     className="font-bold text-accent hover:text-accent/80 transition-colors"
+                    eventLabel="main_page_cta"
                   >
                     {CONTACT_INFO.emergency}
-                  </a>
+                  </PhoneLink>
                 </p>
               </div>
 
               {/* Actions */}
               <div className="flex flex-wrap gap-4">
                 {primaryAction?.isPhoneNumber ? (
-                  <a
-                    href={primaryAction?.href || '#'}
+                  <PhoneLink
+                    phoneNumber={primaryAction?.href?.replace('tel:', '') || '(562) 436-2616'}
                     className="btn btn-accent"
+                    eventLabel="main_page_cta"
                   >
                     {primaryAction?.label || 'Contact Us'}
-                  </a>
+                  </PhoneLink>
                 ) : (
                   <Link
                     href={primaryAction?.href || '#'}

@@ -1,6 +1,7 @@
 "use client";
 
 import { LongTailKeyword, Language } from "@/app/types";
+import PhoneLink from "@/app/components/PhoneLink";
 
 interface LongTailKeywordsProps {
   title?: string;
@@ -54,12 +55,13 @@ export default function LongTailKeywords({
               <p className="text-gray-600 mb-6">
                 {processText(keyword.description)}
               </p>
-              <a
-                href={`tel:${phone}`}
+              <PhoneLink
+                phoneNumber={phone}
                 className="inline-block w-full text-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300"
+                eventLabel="main_page_cta"
               >
                 {buttonText}
-              </a>
+              </PhoneLink>
             </div>
           ))}
         </div>

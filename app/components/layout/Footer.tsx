@@ -3,6 +3,7 @@ import { Language } from '@/app/types';
 import { locations } from '@/app/lib/locations';
 import { services } from '@/app/lib/services';
 import { CONTACT_INFO } from '@/app/lib/config';
+import PhoneLink from '@/app/components/PhoneLink';
 
 interface FooterProps {
   lang: Language;
@@ -51,11 +52,11 @@ export default function Footer({ lang }: FooterProps) {
               <p className="mb-2">{CONTACT_INFO.address}</p>
               <p className="mb-2">
                 {translations.office}:{' '}
-                <a href={`tel:${CONTACT_INFO.office}`} className="text-primary hover:text-primary/80 font-medium transition-colors">{CONTACT_INFO.office}</a>
+                <PhoneLink phoneNumber={CONTACT_INFO.office} className="text-primary hover:text-primary/80 font-medium transition-colors" eventLabel="footer_office">{CONTACT_INFO.office}</PhoneLink>
               </p>
               <p className="mb-2">
                 {translations.emergency}:{' '}
-                <a href={`tel:${CONTACT_INFO.emergency}`} className="text-accent hover:text-accent/80 font-medium transition-colors">{CONTACT_INFO.emergency}</a>
+                <PhoneLink phoneNumber={CONTACT_INFO.emergency} className="text-accent hover:text-accent/80 font-medium transition-colors" eventLabel="footer_emergency">{CONTACT_INFO.emergency}</PhoneLink>
               </p>
               <p>
                 {translations.email}:{' '}

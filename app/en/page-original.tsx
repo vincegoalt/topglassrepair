@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { services } from '../lib/services';
 import { generateMetadata as generateSeoMetadata, generateStructuredData } from '../utils/seo';
 import { getTranslation } from '../utils/languageClient';
+import PhoneLink from '../components/PhoneLink';
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = generateSeoMetadata('en');
@@ -51,9 +52,9 @@ export default function HomePage() {
               Professional glass repair, replacement, and custom mirror solutions. Available 24/7 for emergency services.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a href="tel:(562) 436-2616" className="btn btn-accent">
+              <PhoneLink phoneNumber="(562) 436-2616" className="btn btn-accent" eventLabel="main_page_cta">
                 {getTranslation('callToAction', 'en')}
-              </a>
+              </PhoneLink>
               <Link href="/en/services" className="btn btn-outline text-white border-white hover:bg-white hover:text-primary">
                 {getTranslation('services', 'en')}
               </Link>
@@ -137,9 +138,9 @@ export default function HomePage() {
             Contact us today for a free estimate. Our team of experts is ready to help with all your glass and mirror needs.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="tel:(562) 436-2616" className="btn btn-accent">
+            <PhoneLink phoneNumber="(562) 436-2616" className="btn btn-accent" eventLabel="main_page_cta">
               Call Now: (562) 436-2616
-            </a>
+            </PhoneLink>
             <Link href="/en/contact" className="btn btn-outline text-white border-white hover:bg-white hover:text-primary">
               Contact Us
             </Link>

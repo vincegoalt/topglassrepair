@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Language } from '@/app/types';
 import ShowcaseImageSplit from '@/app/components/ShowcaseImageSplit';
+import PhoneLink from '@/app/components/PhoneLink';
 
 interface ShowcaseItem {
   id: string;
@@ -257,12 +258,12 @@ export default function ServiceShowcase({
               ? 'Ready to transform your space with professional glass services?'
               : '¿Listo para transformar su espacio con servicios profesionales de vidrio?'}
           </p>
-          <a href={`tel:${process.env.NEXT_PUBLIC_PHONE_NUMBER || '(562) 436-2616'}`} className="btn btn-accent">
+          <PhoneLink phoneNumber={process.env.NEXT_PUBLIC_PHONE_NUMBER || '(562) 436-2616'} className="btn btn-accent" eventLabel="main_page_cta">
             <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
             </svg>
             {lang === 'en' ? 'Get Your Free Quote' : 'Obtenga Su Cotización Gratis'}
-          </a>
+          </PhoneLink>
         </div>
       </div>
     </section>

@@ -12,6 +12,7 @@ import Breadcrumbs, { generateServiceBreadcrumbs } from '@/app/components/naviga
 import ServiceShowcase from '@/app/components/sections/ServiceShowcase';
 import FAQSection from '@/app/components/sections/FAQSection';
 import { getServiceIcon } from '@/app/components/icons/ServiceIcons';
+import PhoneLink from '@/app/components/PhoneLink';
 
 interface ServicePageProps {
   params: {
@@ -169,15 +170,16 @@ export default function ServicePage({ params }: ServicePageProps) {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <a 
-                  href="tel:(562) 436-2616" 
+                <PhoneLink
+                  phoneNumber="(562) 436-2616"
                   className="btn btn-accent"
+                  eventLabel="service_page_cta"
                 >
                   <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                   </svg>
                   Get Free Estimate
-                </a>
+                </PhoneLink>
                 <a 
                   href="/en/contact" 
                   className="btn btn-glass"

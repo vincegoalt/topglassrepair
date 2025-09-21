@@ -13,6 +13,7 @@ import {
   generateLocalBusinessSchema
 } from '../../../../../utils/seo';
 import CallToAction from '../../../../../components/sections/CallToAction';
+import PhoneLink from '../../../../../components/PhoneLink';
 
 export async function generateStaticParams() {
   const params = [];
@@ -168,9 +169,9 @@ export default function ServiceLocationPage({ params }: { params: { service: str
               {locationData ? locationData.hero.subtitle : `Professional ${service.name.en.toLowerCase()} services in ${location.name}, CA. Available 24/7 for emergencies.`}
             </p>
             <div className="flex flex-wrap gap-4">
-              <a href="tel:(562) 436-2616" className="btn btn-accent">
+              <PhoneLink phoneNumber="(562) 436-2616" className="btn btn-accent" eventLabel="service_page_cta">
                 Call Now: (562) 436-2616
-              </a>
+              </PhoneLink>
               <Link href="/en/contact" className="btn btn-outline text-white border-white hover:bg-white hover:text-primary">
                 Get Free Quote
               </Link>
@@ -323,9 +324,9 @@ export default function ServiceLocationPage({ params }: { params: { service: str
                   Get {service.name.en} in {location.name} Today!
                 </h3>
                 <div className="space-y-4">
-                  <a href="tel:(562) 436-2616" className="btn btn-accent w-full">
+                  <PhoneLink phoneNumber="(562) 436-2616" className="btn btn-accent w-full" eventLabel="service_page_cta">
                     📞 (562) 436-2616
-                  </a>
+                  </PhoneLink>
                   <Link href="/en/contact" className="btn btn-outline text-white border-white hover:bg-white hover:text-primary w-full">
                     Request Free Quote
                   </Link>
